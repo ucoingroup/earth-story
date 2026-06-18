@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EACO Featured Stories | 精选正能量故事</title>
+    <meta name="description" content="Top 150 EACO positive energy stories from around the world">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #0a0a1a;
+            --card-bg: #12122a;
+            --text: #e8e8f0;
+            --text-dim: #8888aa;
+            --accent: #6c5ce7;
+            --accent2: #00cec9;
+            --gold: #feca57;
+            --border: #2a2a4a;
+            --gradient: linear-gradient(135deg, #6c5ce7, #00cec9);
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans SC', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        .stars {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 0;
+            background: radial-gradient(2px 2px at 20px 30px, #ffffff33, transparent),
+                        radial-gradient(2px 2px at 40px 70px, #ffffff22, transparent),
+                        radial-gradient(1px 1px at 90px 40px, #ffffff44, transparent),
+                        radial-gradient(1px 1px at 130px 80px, #ffffff22, transparent),
+                        radial-gradient(2px 2px at 160px 30px, #ffffff33, transparent);
+            background-size: 200px 100px;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; position: relative; z-index: 1; }
+        
+        /* Header */
+        .header {
+            text-align: center; padding: 40px 20px 30px;
+            background: linear-gradient(180deg, rgba(108,92,231,0.15), transparent);
+            border-radius: 20px; margin-bottom: 30px;
+        }
+        .header h1 {
+            font-size: 2.2em; background: var(--gradient);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; margin-bottom: 10px;
+        }
+        .header .subtitle { color: var(--text-dim); font-size: 1em; margin-bottom: 15px; }
+        .logo { font-size: 3em; margin-bottom: 10px; }
+        .back-link {
+            display: inline-block; padding: 8px 20px; border: 1px solid var(--border);
+            border-radius: 10px; color: var(--accent2); text-decoration: none;
+            font-size: 0.9em; transition: all 0.3s;
+        }
+        .back-link:hover { background: var(--accent); color: #fff; border-color: transparent; }
+        
+        /* Language selector */
+        .lang-bar {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+            padding: 15px; background: var(--card-bg); border-radius: 12px;
+            margin-bottom: 25px; border: 1px solid var(--border);
+        }
+        .lang-btn {
+            padding: 6px 14px; border: 1px solid var(--border); border-radius: 8px;
+            background: transparent; color: var(--text-dim); cursor: pointer;
+            font-size: 0.85em; transition: all 0.3s;
+        }
+        .lang-btn:hover, .lang-btn.active {
+            background: var(--gradient); color: #fff; border-color: transparent;
+        }
+        
+        /* Story cards */
+        .story-grid { display: flex; flex-direction: column; gap: 20px; }
+        .story-card {
+            background: var(--card-bg); border-radius: 16px; padding: 25px;
+            border: 1px solid var(--border); transition: all 0.3s;
+            position: relative; overflow: hidden;
+        }
+        .story-card:hover {
+            border-color: var(--accent); transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(108,92,231,0.15);
+        }
+        .story-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            background: var(--gradient); opacity: 0; transition: opacity 0.3s;
+        }
+        .story-card:hover::before { opacity: 1; }
+        .story-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 15px; flex-wrap: wrap; gap: 10px;
+        }
+        .story-location { font-size: 1em; color: var(--accent2); font-weight: 600; }
+        .story-energy {
+            padding: 4px 12px; border-radius: 20px; font-size: 0.85em; font-weight: 600;
+        }
+        .energy-high { background: rgba(254,202,87,0.15); color: var(--gold); }
+        .story-theme {
+            font-size: 0.8em; padding: 3px 10px; border-radius: 6px;
+            background: rgba(108,92,231,0.15); color: var(--accent);
+            margin-bottom: 12px; display: inline-block;
+        }
+        .story-title {
+            font-size: 1.1em; color: var(--gold); margin-bottom: 12px; font-weight: 600;
+        }
+        .story-body {
+            color: var(--text); font-size: 0.95em; line-height: 1.8;
+            margin-bottom: 15px; white-space: pre-line;
+        }
+        .story-meta {
+            font-size: 0.8em; color: var(--text-dim); margin-top: 10px;
+            display: flex; gap: 15px; flex-wrap: wrap;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center; padding: 30px 20px; margin-top: 20px;
+            border-top: 1px solid var(--border); color: var(--text-dim);
+            font-size: 0.85em;
+        }
+        .footer a { color: var(--accent2); text-decoration: none; }
+        .footer a:hover { text-decoration: underline; }
+        
+        /* Loading */
+        .loading { text-align: center; padding: 60px; color: var(--text-dim); }
+        .loading .spinner {
+            display: inline-block; width: 40px; height: 40px;
+            border: 3px solid var(--border); border-top-color: var(--accent);
+            border-radius: 50%; animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        @media (max-width: 600px) {
+            .header h1 { font-size: 1.6em; }
+            .story-card { padding: 18px; }
+            .container { padding: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="container" id="app">
+        <div class="header">
+            <div class="logo">🌟</div>
+            <h1 id="site-title">EACO Featured Stories</h1>
+            <p class="subtitle" id="site-subtitle">Top 150 positive energy stories from around the world</p>
+            <a href="index.html" class="back-link">← Back to Daily Stories</a>
+        </div>
+        
+        <div class="lang-bar" id="lang-bar"></div>
+        
+        <div id="stories-container" class="story-grid">
+            <div class="loading"><div class="spinner"></div><p id="loading-text">Loading featured stories...</p></div>
+        </div>
+        
+        <div class="footer">
+            <p>EACO Earth Story — Connecting the world through positive energy 🌍</p>
+            <p>
+                <a href="https://linktr.ee/eacocc" target="_blank">EACO Official</a> · 
+                <a href="https://github.com/ucoingroup/earth-story" target="_blank">GitHub</a> · 
+                <a href="https://x.com/eacocc" target="_blank">Twitter</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+    const LANGS = {
+        en: { name: 'English', flag: '🇬🇧' },
+        zh: { name: '中文', flag: '🇨🇳' },
+        ru: { name: 'Русский', flag: '🇷🇺' },
+        fr: { name: 'Français', flag: '🇫🇷' },
+        es: { name: 'Español', flag: '🇪🇸' },
+        ar: { name: 'العربية', flag: '🇸🇦' },
+        vi: { name: 'Tiếng Việt', flag: '🇻🇳' },
+        ko: { name: '한국어', flag: '🇰🇷' },
+        ja: { name: '日本語', flag: '🇯🇵' },
+        ms: { name: 'Bahasa Melayu', flag: '🇲🇾' }
+    };
+
+    const UI_TEXT = {
+        en: { title: 'EACO Featured Stories', subtitle: 'Top 150 positive energy stories from around the world', loading: 'Loading featured stories...' },
+        zh: { title: 'EACO 精选正能量故事', subtitle: '来自世界各地的150个最高能量故事', loading: '正在加载精选故事...' },
+        ru: { title: 'EACO Избранные Истории', subtitle: '150 лучших историй позитивной энергии со всего мира', loading: 'Загрузка историй...' },
+        fr: { title: 'EACO Histoires en Vedette', subtitle: '150 meilleures histoires d\'énergie positive du monde entier', loading: 'Chargement des histoires...' },
+        es: { title: 'EACO Historias Destacadas', subtitle: '150 mejores historias de energía positiva de todo el mundo', loading: 'Cargando historias...' },
+        ar: { title: 'EACO القصص المميزة', subtitle: '150 من أفضل قصص الطاقة الإيجابية من أنحاء العالم', loading: 'جاري تحميل القصص...' },
+        vi: { title: 'EACO Câu Chuyện Tiêu Biểu', subtitle: '150 câu chuyện năng lượng tích cực nhất từ khắp nơi', loading: 'Đang tải câu chuyện...' },
+        ko: { title: 'EACO 주요 이야기', subtitle: '전 세계 최고의 긍정 에너지 이야기 150선', loading: '이야기 로딩 중...' },
+        ja: { title: 'EACO 注目のストーリー', subtitle: '世界中の最高のポジティブエネルギーストーリー150選', loading: 'ストーリーを読み込み中...' },
+        ms: { title: 'EACO Cerita Pilihan', subtitle: '150 cerita tenaga positif terbaik dari seluruh dunia', loading: 'Memuatkan cerita...' }
+    };
+
+    let currentLang = localStorage.getItem('earthStoryLang') || 'en';
+
+    function renderLangBar() {
+        const bar = document.getElementById('lang-bar');
+        bar.innerHTML = Object.entries(LANGS).map(([code, lang]) =>
+            `<button class="lang-btn ${code === currentLang ? 'active' : ''}" onclick="switchLang('${code}')">${lang.flag} ${lang.name}</button>`
+        ).join('');
+    }
+
+    async function switchLang(lang) {
+        currentLang = lang;
+        localStorage.setItem('earthStoryLang', lang);
+        document.documentElement.lang = lang;
+        const ui = UI_TEXT[lang] || UI_TEXT.en;
+        document.getElementById('site-title').textContent = ui.title;
+        document.getElementById('site-subtitle').textContent = ui.subtitle;
+        document.getElementById('loading-text').textContent = ui.loading;
+        renderLangBar();
+        await loadStories();
+    }
+
+    async function loadStories() {
+        const ui = UI_TEXT[currentLang] || UI_TEXT.en;
+        const container = document.getElementById('stories-container');
+        container.innerHTML = `<div class="loading"><div class="spinner"></div><p>${ui.loading}</p></div>`;
+
+        try {
+            const resp = await fetch(`stories/featured/featured-${currentLang}.json`);
+            if (!resp.ok) throw new Error('Not found');
+            const data = await resp.json();
+            renderStories(data);
+        } catch (e) {
+            // Fallback to English
+            try {
+                const resp = await fetch('stories/featured/featured-en.json');
+                const data = await resp.json();
+                renderStories(data);
+            } catch (e2) {
+                container.innerHTML = `<div style="text-align:center;padding:40px;color:var(--text-dim);">
+                    <p>Failed to load featured stories.</p>
+                </div>`;
+            }
+        }
+    }
+
+    function renderStories(data) {
+        const container = document.getElementById('stories-container');
+        let html = '';
+
+        (data.stories || []).forEach((story, i) => {
+            const energy = story.energy || 0;
+            const energyClass = energy >= 900 ? 'energy-high' : energy >= 800 ? 'energy-high' : 'energy-mid';
+            
+            html += `
+            <div class="story-card">
+                <div class="story-header">
+                    <span class="story-location">${story.emoji || '📍'} ${story.location || ''}</span>
+                    <span class="story-energy ${energyClass}">🔥 ${energy}</span>
+                </div>
+                <span class="story-theme">${story.theme || ''}</span>
+                ${story.title ? `<div class="story-title">#${data.stories.length - i} ${story.title}</div>` : ''}
+                <div class="story-body">${story.body || ''}</div>
+                ${story.mechanism ? `<div class="story-meta"><span>💰 ${story.mechanism}</span></div>` : ''}
+            </div>`;
+        });
+
+        container.innerHTML = html;
+    }
+
+    // Init
+    renderLangBar();
+    const ui = UI_TEXT[currentLang] || UI_TEXT.en;
+    document.getElementById('site-title').textContent = ui.title;
+    document.getElementById('site-subtitle').textContent = ui.subtitle;
+    loadStories();
+    </script>
+</body>
+</html>

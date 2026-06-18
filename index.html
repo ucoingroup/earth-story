@@ -51,6 +51,15 @@
         }
         .header .subtitle { color: var(--text-dim); font-size: 1em; }
         .logo { font-size: 3em; margin-bottom: 10px; }
+        .featured-link {
+            display: inline-block; margin-top: 15px;
+            padding: 8px 20px; border: 1px solid var(--accent); border-radius: 10px;
+            background: transparent; color: var(--accent); text-decoration: none;
+            font-size: 0.9em; transition: all 0.3s;
+        }
+        .featured-link:hover {
+            background: var(--gradient); color: #fff; border-color: transparent;
+        }
         
         /* Language selector */
         .lang-bar {
@@ -215,6 +224,7 @@
             <div class="logo">🌍</div>
             <h1 id="site-title">EACO Earth Story</h1>
             <p class="subtitle" id="site-subtitle">Daily positive energy stories from around the world</p>
+            <a href="featured.html" class="featured-link">🌟 Featured Stories (150 Top Energy)</a>
         </div>
         
         <div class="lang-bar" id="lang-bar"></div>
