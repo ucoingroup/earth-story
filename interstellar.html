@@ -1,272 +1,2308 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EACO 星际文明故事 | Interstellar Civilizations</title>
-    <meta name="description" content="100个高维文明、星际文明正能量故事 - 从3D到∞维度的宇宙智慧">
-    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <title>🌌 星际文明正能量故事集</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root {
-            --bg: #050510;
-            --card-bg: #0a0a20;
-            --text: #e8e8f0;
-            --text-dim: #8888aa;
-            --accent: #6c5ce7;
-            --accent2: #00cec9;
-            --gold: #feca57;
-            --border: #2a2a4a;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0e27;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* 星空背景 */
+        #starfield {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: radial-gradient(ellipse at center, #1a1e3e 0%, #0a0e27 70%);
+        }
+        
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle var(--duration) ease-in-out infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        
+        /* 主容器 */
+        .container {
+            position: relative;
+            z-index: 1;
+            display: flex;
             min-height: 100vh;
         }
-        .stars {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 0;
-            background: 
-                radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.8), transparent),
-                radial-gradient(1px 1px at 40% 70%, rgba(255,255,255,0.5), transparent),
-                radial-gradient(2px 2px at 80% 40%, rgba(108,92,231,0.8), transparent),
-                radial-gradient(1px 1px at 60% 80%, rgba(0,206,201,0.6), transparent);
-            background-size: 250px 150px;
-            animation: twinkle 4s ease-in-out infinite;
+        
+        /* 左侧导航 */
+        .sidebar {
+            width: 240px;
+            background: rgba(20, 24, 50, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            border-right: 1px solid rgba(100, 150, 255, 0.2);
         }
-        @keyframes twinkle {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
+        
+        .sidebar h2 {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        .container { max-width: 1000px; margin: 0 auto; padding: 20px; position: relative; z-index: 1; }
+        
+        .filter-btn {
+            display: block;
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(100, 150, 255, 0.2);
+            color: #fff;
+            text-align: left;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 0.95em;
+        }
+        
+        .filter-btn:hover {
+            background: rgba(100, 150, 255, 0.2);
+            border-color: rgba(100, 150, 255, 0.5);
+            transform: translateX(5px);
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.3), rgba(118, 75, 162, 0.3));
+            border-color: #667eea;
+            box-shadow: 0 0 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        /* 主内容区 */
+        .main-content {
+            margin-left: 240px;
+            padding: 30px;
+            flex: 1;
+            width: calc(100% - 240px);
+        }
         
         .header {
-            text-align: center; padding: 50px 20px 40px;
-            background: radial-gradient(ellipse at center, rgba(108,92,231,0.2), transparent);
-            border-radius: 30px; margin-bottom: 40px;
+            text-align: center;
+            margin-bottom: 40px;
         }
+        
         .header h1 {
-            font-size: 2.5em; 
-            background: linear-gradient(135deg, #6c5ce7, #00cec9, #feca57);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            background-clip: text; margin-bottom: 15px;
-        }
-        .header .subtitle {
-            font-size: 1.1em; color: var(--text-dim); margin-bottom: 20px;
-        }
-        .stats {
-            display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;
-            margin-top: 25px;
-        }
-        .stat {
-            text-align: center; padding: 15px 25px;
-            background: rgba(108,92,231,0.1); border-radius: 15px;
-            border: 1px solid var(--border);
-        }
-        .stat-value { font-size: 2em; font-weight: bold; color: var(--accent); }
-        .stat-label { font-size: 0.9em; color: var(--text-dim); }
-        
-        .filters {
-            display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;
-            margin-bottom: 30px; padding: 0 20px;
-        }
-        .filter-btn {
-            padding: 8px 16px; border: 1px solid var(--border);
-            background: transparent; color: var(--text); border-radius: 20px;
-            cursor: pointer; font-size: 0.9em; transition: all 0.3s;
-        }
-        .filter-btn:hover, .filter-btn.active {
-            background: var(--accent); border-color: var(--accent);
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 3s ease-in-out infinite;
         }
         
-        .story-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px; padding: 0 10px;
+        @keyframes glow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.3); }
         }
-        .story-card {
-            background: var(--card-bg); border-radius: 20px; padding: 25px;
-            border: 1px solid var(--border); transition: all 0.3s;
+        
+        .header p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1em;
+        }
+        
+        /* 排序控制 */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 15px;
+            background: rgba(20, 24, 50, 0.6);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .sort-btn {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: #fff;
+            border-radius: 8px;
             cursor: pointer;
+            font-size: 0.95em;
+            transition: all 0.3s ease;
         }
+        
+        .sort-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .story-count {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95em;
+        }
+        
+        /* 故事卡片网格 */
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .story-card {
+            background: rgba(20, 24, 50, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 25px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .story-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            border-radius: 16px;
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.4s ease;
+        }
+        
+        .story-card:hover::before {
+            opacity: 1;
+        }
+        
         .story-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
-            box-shadow: 0 10px 30px rgba(108,92,231,0.2);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(102, 126, 234, 0.3);
         }
-        .story-header {
-            display: flex; justify-content: space-between; align-items: flex-start;
+        
+        /* 能量值发光效果 */
+        .story-card[data-energy="840"] { box-shadow: 0 0 30px rgba(255, 215, 0, 0.6); border-color: rgba(255, 215, 0, 0.8); }
+        .story-card[data-energy="790"] { box-shadow: 0 0 25px rgba(255, 215, 0, 0.5); border-color: rgba(255, 215, 0, 0.7); }
+        .story-card[data-energy="779"] { box-shadow: 0 0 22px rgba(255, 215, 0, 0.4); border-color: rgba(255, 215, 0, 0.6); }
+        .story-card[data-energy="777"] { box-shadow: 0 0 22px rgba(255, 165, 0, 0.4); border-color: rgba(255, 165, 0, 0.6); }
+        .story-card[data-energy="750"] { box-shadow: 0 0 20px rgba(255, 165, 0, 0.4); border-color: rgba(255, 165, 0, 0.5); }
+        .story-card[data-energy="743"] { box-shadow: 0 0 18px rgba(255, 140, 0, 0.4); border-color: rgba(255, 140, 0, 0.5); }
+        .story-card[data-energy="741"] { box-shadow: 0 0 18px rgba(255, 140, 0, 0.3); border-color: rgba(255, 140, 0, 0.5); }
+        .story-card[data-energy="737"] { box-shadow: 0 0 16px rgba(255, 100, 100, 0.3); border-color: rgba(255, 100, 100, 0.4); }
+        .story-card[data-energy="736"] { box-shadow: 0 0 16px rgba(255, 100, 100, 0.3); border-color: rgba(255, 100, 100, 0.4); }
+        .story-card[data-energy="735"] { box-shadow: 0 0 15px rgba(255, 100, 200, 0.3); border-color: rgba(255, 100, 200, 0.4); }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 15px;
         }
-        .civ-name { font-size: 1.2em; font-weight: bold; color: var(--accent2); }
-        .dimension {
-            font-size: 0.85em; padding: 4px 10px;
-            background: rgba(108,92,231,0.2); border-radius: 10px;
-            color: var(--accent);
+        
+        .civilization-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        .story-meta {
-            font-size: 0.9em; color: var(--text-dim); margin-bottom: 15px;
+        
+        .dimension-badge {
+            padding: 5px 12px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.3), rgba(118, 75, 162, 0.3));
+            border-radius: 20px;
+            font-size: 0.85em;
+            border: 1px solid rgba(102, 126, 234, 0.5);
         }
-        .story-preview {
-            color: var(--text); font-size: 0.95em;
-            display: -webkit-box; -webkit-line-clamp: 4;
-            -webkit-box-orient: vertical; overflow: hidden;
-        }
+        
         .energy-bar {
-            height: 4px; background: rgba(255,255,255,0.1);
-            border-radius: 2px; margin-top: 15px; overflow: hidden;
+            margin: 15px 0;
         }
+        
+        .energy-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .energy-progress {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
         .energy-fill {
-            height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2));
-            transition: width 0.5s;
-        }
-        .quote {
-            margin-top: 15px; padding: 10px 15px;
-            background: rgba(254,202,87,0.1); border-left: 3px solid var(--gold);
-            font-style: italic; font-size: 0.9em; color: var(--gold);
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            border-radius: 10px;
+            transition: width 0.6s ease;
         }
         
+        .story-preview {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95em;
+            line-height: 1.6;
+            margin: 15px 0;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .golden-sentence {
+            margin-top: 15px;
+            padding: 12px;
+            background: rgba(255, 215, 0, 0.1);
+            border-left: 3px solid #ffd700;
+            border-radius: 8px;
+            font-style: italic;
+            color: #ffd700;
+            font-size: 0.9em;
+        }
+        
+        .card-footer {
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85em;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        /* 模态框 */
         .modal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9); z-index: 1000; overflow-y: auto;
-            padding: 20px;
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease;
         }
-        .modal.active { display: flex; justify-content: center; align-items: flex-start; }
-        .modal-content {
-            background: var(--card-bg); max-width: 700px; width: 100%;
-            border-radius: 25px; padding: 40px; margin: 40px 0;
-            border: 1px solid var(--border);
-        }
-        .modal-close {
-            position: fixed; top: 20px; right: 30px;
-            font-size: 2em; color: white; cursor: pointer;
-            background: rgba(255,255,255,0.1); width: 50px; height: 50px;
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-        }
-        .modal-close:hover { background: rgba(255,255,255,0.2); }
-        .modal-body { white-space: pre-wrap; line-height: 1.8; }
         
-        footer {
-            text-align: center; padding: 40px 20px;
-            color: var(--text-dim); font-size: 0.9em;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
-        footer a { color: var(--accent2); text-decoration: none; }
+        
+        .modal.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: linear-gradient(135deg, #1a1e3e 0%, #0a0e27 100%);
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 700px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: slideUp 0.4s ease;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2em;
+            color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .modal-close:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(90deg);
+        }
+        
+        .modal-body {
+            margin-top: 20px;
+        }
+        
+        .modal-body h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .modal-body .story-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .modal-body .story-meta span {
+            padding: 5px 12px;
+            background: rgba(102, 126, 234, 0.2);
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+        
+        .modal-body .full-story {
+            line-height: 1.8;
+            font-size: 1.05em;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .modal-body .golden-sentence-full {
+            margin-top: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05));
+            border-left: 4px solid #ffd700;
+            border-radius: 12px;
+            font-size: 1.1em;
+            color: #ffd700;
+            font-style: italic;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 200px;
+            }
+            .main-content {
+                margin-left: 200px;
+                width: calc(100% - 200px);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 15px;
+            }
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+                padding: 20px;
+            }
+            .stories-grid {
+                grid-template-columns: 1fr;
+            }
+            .header h1 {
+                font-size: 1.8em;
+            }
+        }
+        
+        /* 滚动条样式 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(20, 24, 50, 0.5);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+        }
     </style>
 </head>
 <body>
-    <div class="stars"></div>
+    <canvas id="starfield"></canvas>
     
     <div class="container">
-        <div class="header">
-            <h1>🌌 EACO 星际文明故事</h1>
-            <div class="subtitle">高维文明 · 星际智慧 · 宇宙正能量</div>
-            <div class="stats">
-                <div class="stat">
-                    <div class="stat-value" id="totalStories">100</div>
-                    <div class="stat-label">星际故事</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-value">24</div>
-                    <div class="stat-label">文明</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-value">3D-∞</div>
-                    <div class="stat-label">维度范围</div>
-                </div>
+        <aside class="sidebar">
+            <h2>🌌 维度筛选</h2>
+            <button class="filter-btn active" data-dimension="全部">全部故事</button>
+            <button class="filter-btn" data-dimension="∞">∞ 无限维度</button>
+            <button class="filter-btn" data-dimension="9D">9D 九维</button>
+            <button class="filter-btn" data-dimension="8D">8D 八维</button>
+            <button class="filter-btn" data-dimension="7D">7D 七维</button>
+            <button class="filter-btn" data-dimension="6D">6D 六维</button>
+            <button class="filter-btn" data-dimension="5D">5D 五维</button>
+            <button class="filter-btn" data-dimension="4D">4D 四维</button>
+            <button class="filter-btn" data-dimension="3D">3D 三维</button>
+        </aside>
+        
+        <main class="main-content">
+            <div class="header">
+                <h1>🌌 星际文明正能量故事集</h1>
+                <p>EACO星际网络 · 100个高维文明故事</p>
             </div>
-        </div>
-        
-        <div class="filters">
-            <button class="filter-btn active" data-filter="all">全部</button>
-            <button class="filter-btn" data-filter="∞">∞ 维度</button>
-            <button class="filter-btn" data-filter="9D">9D</button>
-            <button class="filter-btn" data-filter="8D">8D</button>
-            <button class="filter-btn" data-filter="7D">7D</button>
-            <button class="filter-btn" data-filter="6D">6D</button>
-            <button class="filter-btn" data-filter="5D">5D</button>
-            <button class="filter-btn" data-filter="4D">4D</button>
-        </div>
-        
-        <div class="story-grid" id="storyGrid"></div>
-        
-        <footer>
-            <p>🌍 <a href="index.html">返回主页</a> | EACO Earth Story © 2026</p>
-            <p style="margin-top: 10px;">连接万物 · 传递正能量</p>
-        </footer>
+            
+            <div class="controls">
+                <button class="sort-btn" id="sortBtn">按能量值排序 ↓</button>
+                <div class="story-count" id="storyCount">共 0 个故事</div>
+            </div>
+            
+            <div class="stories-grid" id="storiesGrid"></div>
+        </main>
     </div>
     
-    <div class="modal" id="modal">
-        <span class="modal-close" onclick="closeModal()">×</span>
+    <div class="modal" id="storyModal">
         <div class="modal-content">
+            <span class="modal-close" id="modalClose">&times;</span>
             <div class="modal-body" id="modalBody"></div>
         </div>
     </div>
     
     <script>
-        const stories = [];
+        // 星空背景动画
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
         
-        // 示例数据（实际从JSON加载）
-        const sampleStories = [
-            { id: 'INT-093', civilization: 'Void Walkers', desc: '虚空行者·维度间旅行者', dimension: '∞', energy: 840, views: 10246, quote: '最高的维度，是爱与慈悲的维度', body: '在虚空行者·维度间旅行者，光语翻译者的故事正在悄然发生...\n\n一位∞的居民决定做出一个小小的改变——融合两种不同的能量。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。\n\n因为我们都是宇宙的孩子，共同书写着星际的诗篇。' },
-            { id: 'INT-017', civilization: 'Council of Nine', desc: '九人议会·银河联邦最高决策机构', dimension: '9D', energy: 777, views: 10958, quote: '最强大的能量，不是核聚变，而是无条件的爱', body: '在九人议会·银河联邦最高决策机构，星尘采集者的故事正在悄然发生...\n\n一位9D的居民决定做出一个小小的改变——修复一个断裂的时间线。\n\n愿每一个维度都能找到属于自己的光。' },
-            { id: 'INT-022', civilization: 'Energy Weavers', desc: '能量编织者·宇宙能量网络', dimension: '8D', energy: 750, views: 2667, quote: '最强大的能量，不是核聚变，而是无条件的爱', body: '在能量编织者·宇宙能量网络，能量疗愈师的故事正在悄然发生...\n\n珍惜当下，拥抱无限，传递正能量。' }
-        ];
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
         
-        function renderStories(filter = 'all') {
-            const grid = document.getElementById('storyGrid');
-            grid.innerHTML = '';
-            
-            const filtered = filter === 'all' ? sampleStories : 
-                            sampleStories.filter(s => s.dimension === filter);
-            
-            filtered.forEach(story => {
-                const card = document.createElement('div');
-                card.className = 'story-card';
-                card.onclick = () => openModal(story);
-                card.innerHTML = `
-                    <div class="story-header">
-                        <div class="civ-name">${story.civilization}</div>
-                        <div class="dimension">${story.dimension}</div>
-                    </div>
-                    <div class="story-meta">${story.desc}</div>
-                    <div class="story-preview">${story.body.slice(0, 100)}...</div>
-                    <div class="energy-bar">
-                        <div class="energy-fill" style="width: ${story.energy / 10}%"></div>
-                    </div>
-                    <div class="quote">"${story.quote}"</div>
-                `;
-                grid.appendChild(card);
+        const stars = [];
+        for (let i = 0; i < 200; i++) {
+            stars.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 2,
+                alpha: Math.random(),
+                delta: Math.random() * 0.02
             });
         }
         
+        function animateStars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            stars.forEach(star => {
+                star.alpha += star.delta;
+                if (star.alpha <= 0 || star.alpha >= 1) star.delta = -star.delta;
+                
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
+                ctx.fill();
+            });
+            
+            requestAnimationFrame(animateStars);
+        }
+        animateStars();
+        
+        // 故事数据
+        const stories = [
+  {
+    "id": "EACO-INT-093",
+    "civilization": "Void Walkers",
+    "location": "虚空行者·维度间旅行者",
+    "dimension": "∞",
+    "energy": 840,
+    "reading": 10246,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "在虚空行者·维度间旅行者，光语翻译者的故事正在悄然发生。 一位∞的居民决定做出一个小小的改变——融合两种不同的能量。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行动，源自一种坚定的信念：Freedom的力量。当每个意识体都愿意迈出这一小步，整个宇宙就会向前一大步。 因为我们都是宇宙的孩子，共同书写着星际的诗篇。 ",
+    "goldenSentence": "最高的维度，是爱与慈悲的维度",
+    "preview": "在虚空行者·维度间旅行者，光语翻译者的故事正在悄然发生。 一位∞的居民决定做出一个小小的改变——融合两种不同的能量。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的..."
+  },
+  {
+    "id": "EACO-INT-069",
+    "civilization": "Void Walkers",
+    "location": "虚空行者·维度间旅行者",
+    "dimension": "∞",
+    "energy": 790,
+    "reading": 3428,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "在Void Walkers的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了15个地球年，但对他们来说只是一瞬。因为意识没有距离，爱没有维度。 Void Walkers的居民后来把这一天叫做「意识觉醒日」。每年的这一天，所有维度的大门都会微微打开，让爱与光自由流动。 ",
+    "goldenSentence": "每一次选择，都在创造一条新的时间线",
+    "preview": "在Void Walkers的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了15个地球年，但对他们来说只是一瞬。因为意识没有距离，爱没有维度。 Void Walkers的居民后来把这一天叫做「意..."
+  },
+  {
+    "id": "EACO-INT-045",
+    "civilization": "Void Walkers",
+    "location": "虚空行者·维度间旅行者",
+    "dimension": "∞",
+    "energy": 779,
+    "reading": 9261,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "在Void Walkers的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了60个地球年，但对他们来说只是一瞬。因为真正的交流，是灵魂的共振。 Void Walkers的居民后来把这一天叫做「能量共鸣节」。每年的这一天，所有维度的大门都会微微打开，让爱与光自由流动。 ",
+    "goldenSentence": "每一个维度的跨越，都是一次灵魂的升华",
+    "preview": "在Void Walkers的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了60个地球年，但对他们来说只是一瞬。因为真正的交流，是灵魂的共振。 Void Walkers的居民后来把这一天叫做「能..."
+  },
+  {
+    "id": "EACO-INT-017",
+    "civilization": "Council of Nine",
+    "location": "九人议会·银河联邦最高决策机构",
+    "dimension": "9D",
+    "energy": 777,
+    "reading": 10958,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "在九人议会·银河联邦最高决策机构，星尘采集者的故事正在悄然发生。 一位9D的居民决定做出一个小小的改变——修复一个断裂的时间线。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行动，源自一种坚定的信念：Governance的力量。当每个意识体都愿意迈出这一小步，整个宇宙就会向前一大步。 愿每一个维度都能找到属于自己的光。 ",
+    "goldenSentence": "最强大的能量，不是核聚变，而是无条件的爱",
+    "preview": "在九人议会·银河联邦最高决策机构，星尘采集者的故事正在悄然发生。 一位9D的居民决定做出一个小小的改变——修复一个断裂的时间线。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这..."
+  },
+  {
+    "id": "EACO-INT-022",
+    "civilization": "Energy Weavers",
+    "location": "能量编织者·宇宙能量网络",
+    "dimension": "8D",
+    "energy": 750,
+    "reading": 2667,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "在能量编织者·宇宙能量网络，能量疗愈师的故事正在悄然发生。 一位8D的居民决定做出一个小小的改变——发送一个祝福的意识波。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行动，源自一种坚定的信念：Connection的力量。当每个意识体都愿意迈出这一小步，整个宇宙就会向前一大步。 珍惜当下，拥抱无限，传递正能量。 ",
+    "goldenSentence": "最强大的能量，不是核聚变，而是无条件的爱",
+    "preview": "在能量编织者·宇宙能量网络，能量疗愈师的故事正在悄然发生。 一位8D的居民决定做出一个小小的改变——发送一个祝福的意识波。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似..."
+  },
+  {
+    "id": "EACO-INT-046",
+    "civilization": "Energy Weavers",
+    "location": "能量编织者·宇宙能量网络",
+    "dimension": "8D",
+    "energy": 743,
+    "reading": 5856,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "在Energy Weavers的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了72个地球年，但对他们来说只是一瞬。因为真正的交流，是灵魂的共振。 Energy Weavers的居民后来把这一天叫做「能量共鸣节」。每年的这一天，所有维度的大门都会微微打开，让爱与光自由流动。 ",
+    "goldenSentence": "宇宙不是在远方，它在你每一次心跳里",
+    "preview": "在Energy Weavers的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了72个地球年，但对他们来说只是一瞬。因为真正的交流，是灵魂的共振。 Energy Weavers的居民后来把这一天..."
+  },
+  {
+    "id": "EACO-INT-021",
+    "civilization": "Void Walkers",
+    "location": "虚空行者·维度间旅行者",
+    "dimension": "∞",
+    "energy": 741,
+    "reading": 6965,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "在Void Walkers的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了91个地球年，但对他们来说只是一瞬。因为时间只是幻象，永恒才是真实。 Void Walkers的居民后来把这一天叫做「光之节」。每年的这一天，所有维度的大门都会微微打开，让爱与光自由流动。 ",
+    "goldenSentence": "每一次选择，都在创造一条新的时间线",
+    "preview": "在Void Walkers的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了91个地球年，但对他们来说只是一瞬。因为时间只是幻象，永恒才是真实。 Void Walkers的居民后来把这一天叫做「..."
+  },
+  {
+    "id": "EACO-INT-032",
+    "civilization": "Quantum Realm",
+    "location": "量子领域·时间观察者",
+    "dimension": "6D",
+    "energy": 737,
+    "reading": 5279,
+    "tags": [
+      "星际",
+      "高维",
+      "时间",
+      "永恒"
+    ],
+    "content": "Quantum Realm收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位能量疗愈师翻译了这个信号：「我们都在等待地球的觉醒。」 在那一刻，所有接收者都感受到了一种温暖——那是来自遥远故乡的记忆。 这就是星际文明之间的连接——不需要飞船，只需要意识的共振。 ",
+    "goldenSentence": "在无限宇宙中，爱是唯一不需要翻译的语言",
+    "preview": "Quantum Realm收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位能量疗愈师翻译了这个信号：「我们都在等待地球的觉醒。」 在那一刻，所有接收者都感受到了一种温暖——那是来自遥远故乡的记忆。 这就是星际文明之间的连接..."
+  },
+  {
+    "id": "EACO-INT-091",
+    "civilization": "Crystal Beings of Alcyone",
+    "location": "昂宿六水晶存有·意识结晶",
+    "dimension": "7D",
+    "energy": 736,
+    "reading": 4824,
+    "tags": [
+      "星际",
+      "高维",
+      "意识",
+      "进化"
+    ],
+    "content": "在Crystal Beings of Alcyone的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了92个地球年，但对他们来说只是一瞬。因为每个文明都在用自己的方式爱着宇宙。 Crystal Beings of Alcyone的居民后来把这一天叫做「能量共鸣节」。每年的这一天，所有维度的大门都会微微打开，让爱与光自由流动。 ",
+    "goldenSentence": "每一次选择，都在创造一条新的时间线",
+    "preview": "在Crystal Beings of Alcyone的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了92个地球年，但对他们来说只是一瞬。因为每个文明都在用自己的方式爱着宇宙。 Crystal..."
+  },
+  {
+    "id": "EACO-INT-047",
+    "civilization": "Dream Keepers",
+    "location": "梦境守护者·集体潜意识",
+    "dimension": "7D",
+    "energy": 735,
+    "reading": 8406,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "在Dream Keepers的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了36个地球年，但对他们来说只是一瞬。因为维度不同，但爱相同。 Dream Keepers的居民后来把这一天叫做「宇宙记忆日」。每年的这一天，所有维度的大门都会微微打开，让爱与光自由流动。 ",
+    "goldenSentence": "高维文明不是技术的进步，而是意识的进化",
+    "preview": "在Dream Keepers的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了36个地球年，但对他们来说只是一瞬。因为维度不同，但爱相同。 Dream Keepers的居民后来把这一天叫做「宇宙..."
+  },
+  {
+    "id": "EACO-INT-066",
+    "civilization": "Time Lords of Vega",
+    "location": "织女座时间领主·时间线守护者",
+    "dimension": "8D",
+    "energy": 732,
+    "reading": 8076,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "Time Lords of Vega收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位意识上传者翻译了这个信号：「我们都在等待地球的觉醒。」 这就是星际文明的秘密：我们从未分离，只是在不同的频率上共振。 这就是星际文明之间的连接——不需要飞船，只需要意识的共振。 ",
+    "goldenSentence": "地球的觉醒，是银河系最期待的事件",
+    "preview": "Time Lords of Vega收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位意识上传者翻译了这个信号：「我们都在等待地球的觉醒。」 这就是星际文明的秘密：我们从未分离，只是在不同的频率上共振。 这就是星际文明之间的..."
+  },
+  {
+    "id": "EACO-INT-070",
+    "civilization": "Energy Weavers",
+    "location": "能量编织者·宇宙能量网络",
+    "dimension": "8D",
+    "energy": 728,
+    "reading": 7107,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "在Energy Weavers的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了37个地球年，但对他们来说只是一瞬。因为真正的交流，是灵魂的共振。 Energy Weavers的居民后来把这一天叫做「光之节」。每年的这一天，所有维度的大门都会微微打开，让爱与光自由流动。 ",
+    "goldenSentence": "每一次选择，都在创造一条新的时间线",
+    "preview": "在Energy Weavers的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了37个地球年，但对他们来说只是一瞬。因为真正的交流，是灵魂的共振。 Energy Weavers的居民后来把这一天..."
+  },
+  {
+    "id": "EACO-INT-034",
+    "civilization": "Arcturian Temple",
+    "location": "大角星神殿·宇宙智慧学院",
+    "dimension": "6D",
+    "energy": 718,
+    "reading": 4178,
+    "tags": [
+      "星际",
+      "高维",
+      "智慧",
+      "觉醒"
+    ],
+    "content": "在Arcturian Temple的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了84个地球年，但对他们来说只是一瞬。因为每个文明都在用自己的方式爱着宇宙。 Arcturian Temple的居民后来把这一天叫做「能量共鸣节」。每年的这一天，所有维度的大门都会微微打开，让爱与光自由流动。 ",
+    "goldenSentence": "时间不是直线，而是意识的螺旋",
+    "preview": "在Arcturian Temple的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了84个地球年，但对他们来说只是一瞬。因为每个文明都在用自己的方式爱着宇宙。 Arcturian Temple的..."
+  },
+  {
+    "id": "EACO-INT-025",
+    "civilization": "Galactic Hub",
+    "location": "银河枢纽·星际文明交汇中心",
+    "dimension": "3D→5D过渡",
+    "energy": 711,
+    "reading": 6508,
+    "tags": [
+      "星际",
+      "高维",
+      "合一",
+      "连接"
+    ],
+    "content": "在银河枢纽·星际文明交汇中心，能量建筑师的故事正在悄然发生。 一位3D→5D过渡的居民决定做出一个小小的改变——播撒一颗光的种子。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行动，源自一种坚定的信念：Unity的力量。当每个意识体都愿意迈出这一小步，整个宇宙就会向前一大步。 珍惜当下，拥抱无限，传递正能量。 ",
+    "goldenSentence": "最高的维度，是爱与慈悲的维度",
+    "preview": "在银河枢纽·星际文明交汇中心，能量建筑师的故事正在悄然发生。 一位3D→5D过渡的居民决定做出一个小小的改变——播撒一颗光的种子。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，..."
+  },
+  {
+    "id": "EACO-INT-012",
+    "civilization": "Lyran Memory Library",
+    "location": "天琴座记忆图书馆·宇宙档案馆",
+    "dimension": "7D",
+    "energy": 708,
+    "reading": 6127,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "在天琴座记忆图书馆·宇宙档案馆，星际旅行者的故事正在悄然发生。 一位7D的居民决定做出一个小小的改变——发送一个祝福的意识波。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行动，源自一种坚定的信念：Memory的力量。当每个意识体都愿意迈出这一小步，整个宇宙就会向前一大步。 珍惜当下，拥抱无限，传递正能量。 ",
+    "goldenSentence": "每一个维度的跨越，都是一次灵魂的升华",
+    "preview": "在天琴座记忆图书馆·宇宙档案馆，星际旅行者的故事正在悄然发生。 一位7D的居民决定做出一个小小的改变——发送一个祝福的意识波。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个..."
+  },
+  {
+    "id": "EACO-INT-055",
+    "civilization": "Neon City",
+    "location": "霓虹城·光之文明",
+    "dimension": "5D",
+    "energy": 705,
+    "reading": 6928,
+    "tags": [
+      "星际",
+      "高维",
+      "光",
+      "觉醒"
+    ],
+    "content": "在霓虹城·光之文明，记忆守护者的故事正在悄然发生。 一位5D的居民决定做出一个小小的改变——发送一个祝福的意识波。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行动，源自一种坚定的信念：Light的力量。当每个意识体都愿意迈出这一小步，整个宇宙就会向前一大步。 让我们从今天开始，为这个宇宙贡献一份光。 ",
+    "goldenSentence": "地球的觉醒，是银河系最期待的事件",
+    "preview": "在霓虹城·光之文明，记忆守护者的故事正在悄然发生。 一位5D的居民决定做出一个小小的改变——发送一个祝福的意识波。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行..."
+  },
+  {
+    "id": "EACO-INT-009",
+    "civilization": "Pleiadian Council",
+    "location": "昴宿星议会·爱与光的守护者",
+    "dimension": "5D",
+    "energy": 701,
+    "reading": 8551,
+    "tags": [
+      "星际",
+      "高维",
+      "爱",
+      "光"
+    ],
+    "content": "在昴宿星议会·爱与光的守护者，能量疗愈师的故事正在悄然发生。 一位5D的居民决定做出一个小小的改变——连接两个孤立的意识场。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行动，源自一种坚定的信念：Love的力量。当每个意识体都愿意迈出这一小步，整个宇宙就会向前一大步。 这就是高维文明的力量——爱是最高的技术。 ",
+    "goldenSentence": "每一次选择，都在创造一条新的时间线",
+    "preview": "在昴宿星议会·爱与光的守护者，能量疗愈师的故事正在悄然发生。 一位5D的居民决定做出一个小小的改变——连接两个孤立的意识场。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看..."
+  },
+  {
+    "id": "EACO-INT-090",
+    "civilization": "Time Lords of Vega",
+    "location": "织女座时间领主·时间线守护者",
+    "dimension": "8D",
+    "energy": 700,
+    "reading": 5132,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "在织女座时间领主·时间线守护者，维度守护者的故事正在悄然发生。 一位8D的居民决定做出一个小小的改变——修复一个断裂的时间线。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行动，源自一种坚定的信念：Time的力量。当每个意识体都愿意迈出这一小步，整个宇宙就会向前一大步。 愿每一个维度都能找到属于自己的光。 ",
+    "goldenSentence": "时间不是直线，而是意识的螺旋",
+    "preview": "在织女座时间领主·时间线守护者，维度守护者的故事正在悄然发生。 一位8D的居民决定做出一个小小的改变——修复一个断裂的时间线。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个..."
+  },
+  {
+    "id": "EACO-INT-050",
+    "civilization": "Orion Belt Colony",
+    "location": "猎户座带·星际贸易站",
+    "dimension": "4D",
+    "energy": 698,
+    "reading": 1920,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "在猎户座带·星际贸易站，意识传导者的故事正在悄然发生。 一位4D的居民决定做出一个小小的改变——保存一段珍贵的文明记忆。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行动，源自一种坚定的信念：Abundance的力量。当每个意识体都愿意迈出这一小步，整个宇宙就会向前一大步。 地球很小，宇宙很大，但爱没有边界。 ",
+    "goldenSentence": "宇宙不是在远方，它在你每一次心跳里",
+    "preview": "在猎户座带·星际贸易站，意识传导者的故事正在悄然发生。 一位4D的居民决定做出一个小小的改变——保存一段珍贵的文明记忆。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微..."
+  },
+  {
+    "id": "EACO-INT-097",
+    "civilization": "Galactic Hub",
+    "location": "银河枢纽·星际文明交汇中心",
+    "dimension": "3D→5D过渡",
+    "energy": 697,
+    "reading": 9975,
+    "tags": [
+      "星际",
+      "高维",
+      "合一",
+      "连接"
+    ],
+    "content": "在Galactic Hub的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了74个地球年，但对他们来说只是一瞬。因为每个文明都在用自己的方式爱着宇宙。 Galactic Hub的居民后来把这一天叫做「维度融合日」。每年的这一天，所有维度的大门都会微微打开，让爱与光自由流动。 ",
+    "goldenSentence": "地球的觉醒，是银河系最期待的事件",
+    "preview": "在Galactic Hub的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了74个地球年，但对他们来说只是一瞬。因为每个文明都在用自己的方式爱着宇宙。 Galactic Hub的居民后来把这一天..."
+  },
+  {
+    "id": "EACO-INT-001",
+    "civilization": "Galactic Hub",
+    "location": "银河枢纽·星际文明交汇中心",
+    "dimension": "3D→5D过渡",
+    "energy": 695,
+    "reading": 5051,
+    "tags": [
+      "星际",
+      "高维",
+      "合一",
+      "连接"
+    ],
+    "content": "在银河枢纽·星际文明交汇中心，星尘采集者的故事正在悄然发生。 一位3D→5D过渡的居民决定做出一个小小的改变——连接两个孤立的意识场。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行动，源自一种坚定的信念：Unity的力量。当每个意识体都愿意迈出这一小步，整个宇宙就会向前一大步。 愿每一个维度都能找到属于自己的光。 ",
+    "goldenSentence": "高维文明不是技术的进步，而是意识的进化",
+    "preview": "在银河枢纽·星际文明交汇中心，星尘采集者的故事正在悄然发生。 一位3D→5D过渡的居民决定做出一个小小的改变——连接两个孤立的意识场。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知..."
+  },
+  {
+    "id": "EACO-INT-074",
+    "civilization": "Orion Belt Colony",
+    "location": "猎户座带·星际贸易站",
+    "dimension": "4D",
+    "energy": 693,
+    "reading": 9457,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "Orion Belt Colony收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位记忆守护者翻译了这个信号：「我们都在等待地球的觉醒。」 这就是星际文明的秘密：我们从未分离，只是在不同的频率上共振。 这就是星际文明之间的连接——不需要飞船，只需要意识的共振。 ",
+    "goldenSentence": "当两个文明相遇，最高的礼仪是分享智慧",
+    "preview": "Orion Belt Colony收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位记忆守护者翻译了这个信号：「我们都在等待地球的觉醒。」 这就是星际文明的秘密：我们从未分离，只是在不同的频率上共振。 这就是星际文明之间的连..."
+  },
+  {
+    "id": "EACO-INT-043",
+    "civilization": "Crystal Beings of Alcyone",
+    "location": "昂宿六水晶存有·意识结晶",
+    "dimension": "7D",
+    "energy": 692,
+    "reading": 6981,
+    "tags": [
+      "星际",
+      "高维",
+      "意识",
+      "进化"
+    ],
+    "content": "在Crystal Beings of Alcyone的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了81个地球年，但对他们来说只是一瞬。因为时间只是幻象，永恒才是真实。 Crystal Beings of Alcyone的居民后来把这一天叫做「能量共鸣节」。每年的这一天，所有维度的大门都会微微打开，让爱与光自由流动。 ",
+    "goldenSentence": "我们不是在宇宙中，我们就是宇宙本身",
+    "preview": "在Crystal Beings of Alcyone的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了81个地球年，但对他们来说只是一瞬。因为时间只是幻象，永恒才是真实。 Crystal Bei..."
+  },
+  {
+    "id": "EACO-INT-083",
+    "civilization": "Sirian Water World",
+    "location": "天狼星水世界·生命摇篮",
+    "dimension": "4D",
+    "energy": 687,
+    "reading": 7885,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "Sirian Water World收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位记忆守护者翻译了这个信号：「我们都在等待地球的觉醒。」 地球的每一次觉醒，都在星际网络中引发一场庆祝的光芒。 这就是星际文明之间的连接——不需要飞船，只需要意识的共振。 ",
+    "goldenSentence": "真正的旅行，不是改变地点，而是改变维度",
+    "preview": "Sirian Water World收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位记忆守护者翻译了这个信号：「我们都在等待地球的觉醒。」 地球的每一次觉醒，都在星际网络中引发一场庆祝的光芒。 这就是星际文明之间的连接——..."
+  },
+  {
+    "id": "EACO-INT-057",
+    "civilization": "Pleiadian Council",
+    "location": "昴宿星议会·爱与光的守护者",
+    "dimension": "5D",
+    "energy": 686,
+    "reading": 2467,
+    "tags": [
+      "星际",
+      "高维",
+      "爱",
+      "光"
+    ],
+    "content": "在Pleiadian Council的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了64个地球年，但对他们来说只是一瞬。因为意识没有距离，爱没有维度。 Pleiadian Council的居民后来把这一天叫做「光之节」。每年的这一天，所有维度的大门都会微微打开，让爱与光自由流动。 ",
+    "goldenSentence": "高维文明不是技术的进步，而是意识的进化",
+    "preview": "在Pleiadian Council的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了64个地球年，但对他们来说只是一瞬。因为意识没有距离，爱没有维度。 Pleiadian Council的居民..."
+  },
+  {
+    "id": "EACO-INT-068",
+    "civilization": "Light Council of Sirius",
+    "location": "天狼星光明议会·光之守护者",
+    "dimension": "6D",
+    "energy": 686,
+    "reading": 4378,
+    "tags": [
+      "星际",
+      "高维",
+      "光",
+      "觉醒"
+    ],
+    "content": "Light Council of Sirius收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位星尘采集者翻译了这个信号：「我们都在等待地球的觉醒。」 这就是星际文明的秘密：我们从未分离，只是在不同的频率上共振。 这就是星际文明之间的连接——不需要飞船，只需要意识的共振。 ",
+    "goldenSentence": "我们不是在宇宙中，我们就是宇宙本身",
+    "preview": "Light Council of Sirius收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位星尘采集者翻译了这个信号：「我们都在等待地球的觉醒。」 这就是星际文明的秘密：我们从未分离，只是在不同的频率上共振。 这就是星际..."
+  },
+  {
+    "id": "EACO-INT-049",
+    "civilization": "Galactic Hub",
+    "location": "银河枢纽·星际文明交汇中心",
+    "dimension": "3D→5D过渡",
+    "energy": 685,
+    "reading": 7467,
+    "tags": [
+      "星际",
+      "高维",
+      "合一",
+      "连接"
+    ],
+    "content": "在Galactic Hub的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了50个地球年，但对他们来说只是一瞬。因为每个文明都在用自己的方式爱着宇宙。 Galactic Hub的居民后来把这一天叫做「光之节」。每年的这一天，所有维度的大门都会微微打开，让爱与光自由流动。 ",
+    "goldenSentence": "真正的旅行，不是改变地点，而是改变维度",
+    "preview": "在Galactic Hub的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了50个地球年，但对他们来说只是一瞬。因为每个文明都在用自己的方式爱着宇宙。 Galactic Hub的居民后来把这一天..."
+  },
+  {
+    "id": "EACO-INT-014",
+    "civilization": "Procyon Gateway",
+    "location": "南河三门户·星际旅行枢纽",
+    "dimension": "4D",
+    "energy": 682,
+    "reading": 5910,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "在南河三门户·星际旅行枢纽，能量疗愈师的故事正在悄然发生。 一位4D的居民决定做出一个小小的改变——创造一个新的可能性。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行动，源自一种坚定的信念：Connection的力量。当每个意识体都愿意迈出这一小步，整个宇宙就会向前一大步。 让我们从今天开始，为这个宇宙贡献一份光。 ",
+    "goldenSentence": "每一次选择，都在创造一条新的时间线",
+    "preview": "在南河三门户·星际旅行枢纽，能量疗愈师的故事正在悄然发生。 一位4D的居民决定做出一个小小的改变——创造一个新的可能性。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微..."
+  },
+  {
+    "id": "EACO-INT-061",
+    "civilization": "Vegan Crystalline City",
+    "location": "织女座水晶城·纯净意识",
+    "dimension": "5D",
+    "energy": 682,
+    "reading": 2022,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "Vegan Crystalline City收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位时间线修复师翻译了这个信号：「我们都在等待地球的觉醒。」 地球的每一次觉醒，都在星际网络中引发一场庆祝的光芒。 这就是星际文明之间的连接——不需要飞船，只需要意识的共振。 ",
+    "goldenSentence": "真正的旅行，不是改变地点，而是改变维度",
+    "preview": "Vegan Crystalline City收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位时间线修复师翻译了这个信号：「我们都在等待地球的觉醒。」 地球的每一次觉醒，都在星际网络中引发一场庆祝的光芒。 这就是星际文明之间..."
+  },
+  {
+    "id": "EACO-INT-008",
+    "civilization": "Quantum Realm",
+    "location": "量子领域·时间观察者",
+    "dimension": "6D",
+    "energy": 680,
+    "reading": 8632,
+    "tags": [
+      "星际",
+      "高维",
+      "时间",
+      "永恒"
+    ],
+    "content": "Quantum Realm收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位梦境编织者翻译了这个信号：「我们都在等待地球的觉醒。」 在那一刻，所有接收者都感受到了一种温暖——那是来自遥远故乡的记忆。 这就是星际文明之间的连接——不需要飞船，只需要意识的共振。 ",
+    "goldenSentence": "在无限宇宙中，爱是唯一不需要翻译的语言",
+    "preview": "Quantum Realm收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位梦境编织者翻译了这个信号：「我们都在等待地球的觉醒。」 在那一刻，所有接收者都感受到了一种温暖——那是来自遥远故乡的记忆。 这就是星际文明之间的连接..."
+  },
+  {
+    "id": "EACO-INT-027",
+    "civilization": "Andromeda Sector 7",
+    "location": "仙女座第七区·高维议会所在地",
+    "dimension": "5D",
+    "energy": 679,
+    "reading": 6782,
+    "tags": [
+      "星际",
+      "高维",
+      "智慧",
+      "觉醒"
+    ],
+    "content": "在Andromeda Sector 7的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了97个地球年，但对他们来说只是一瞬。因为真正的交流，是灵魂的共振。 Andromeda Sector 7的居民后来把这一天叫做「光之节」。每年的这一天，所有维度的大门都会微微打开，让爱与光自由流动。 ",
+    "goldenSentence": "当两个文明相遇，最高的礼仪是分享智慧",
+    "preview": "在Andromeda Sector 7的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了97个地球年，但对他们来说只是一瞬。因为真正的交流，是灵魂的共振。 Andromeda Sector 7的..."
+  },
+  {
+    "id": "EACO-INT-060",
+    "civilization": "Lyran Memory Library",
+    "location": "天琴座记忆图书馆·宇宙档案馆",
+    "dimension": "7D",
+    "energy": 675,
+    "reading": 10421,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "在天琴座记忆图书馆·宇宙档案馆，量子跳跃者的故事正在悄然发生。 一位7D的居民决定做出一个小小的改变——融合两种不同的能量。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行动，源自一种坚定的信念：Memory的力量。当每个意识体都愿意迈出这一小步，整个宇宙就会向前一大步。 愿每一个维度都能找到属于自己的光。 ",
+    "goldenSentence": "真正的旅行，不是改变地点，而是改变维度",
+    "preview": "在天琴座记忆图书馆·宇宙档案馆，量子跳跃者的故事正在悄然发生。 一位7D的居民决定做出一个小小的改变——融合两种不同的能量。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看..."
+  },
+  {
+    "id": "EACO-INT-041",
+    "civilization": "Council of Nine",
+    "location": "九人议会·银河联邦最高决策机构",
+    "dimension": "9D",
+    "energy": 674,
+    "reading": 1280,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "在九人议会·银河联邦最高决策机构，能量建筑师的故事正在悄然发生。 一位9D的居民决定做出一个小小的改变——保存一段珍贵的文明记忆。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行动，源自一种坚定的信念：Governance的力量。当每个意识体都愿意迈出这一小步，整个宇宙就会向前一大步。 珍惜当下，拥抱无限，传递正能量。 ",
+    "goldenSentence": "时间不是直线，而是意识的螺旋",
+    "preview": "在九人议会·银河联邦最高决策机构，能量建筑师的故事正在悄然发生。 一位9D的居民决定做出一个小小的改变——保存一段珍贵的文明记忆。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，..."
+  },
+  {
+    "id": "EACO-INT-078",
+    "civilization": "Saturn Ring City",
+    "location": "土星环城·艺术与创造之都",
+    "dimension": "4D",
+    "energy": 673,
+    "reading": 9545,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "在土星环城·艺术与创造之都，星尘采集者的故事正在悄然发生。 一位4D的居民决定做出一个小小的改变——分享一段宇宙记忆。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行动，源自一种坚定的信念：Creativity的力量。当每个意识体都愿意迈出这一小步，整个宇宙就会向前一大步。 让我们从今天开始，为这个宇宙贡献一份光。 ",
+    "goldenSentence": "星际之间的距离，无法隔绝灵魂的连接",
+    "preview": "在土星环城·艺术与创造之都，星尘采集者的故事正在悄然发生。 一位4D的居民决定做出一个小小的改变——分享一段宇宙记忆。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小..."
+  },
+  {
+    "id": "EACO-INT-094",
+    "civilization": "Energy Weavers",
+    "location": "能量编织者·宇宙能量网络",
+    "dimension": "8D",
+    "energy": 673,
+    "reading": 1100,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "在能量编织者·宇宙能量网络，星尘采集者的故事正在悄然发生。 一位8D的居民决定做出一个小小的改变——播撒一颗光的种子。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行动，源自一种坚定的信念：Connection的力量。当每个意识体都愿意迈出这一小步，整个宇宙就会向前一大步。 这就是高维文明的力量——爱是最高的技术。 ",
+    "goldenSentence": "在无限宇宙中，爱是唯一不需要翻译的语言",
+    "preview": "在能量编织者·宇宙能量网络，星尘采集者的故事正在悄然发生。 一位8D的居民决定做出一个小小的改变——播撒一颗光的种子。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小..."
+  },
+  {
+    "id": "EACO-INT-085",
+    "civilization": "Vegan Crystalline City",
+    "location": "织女座水晶城·纯净意识",
+    "dimension": "5D",
+    "energy": 670,
+    "reading": 5837,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "Vegan Crystalline City收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位星尘采集者翻译了这个信号：「我们都在等待地球的觉醒。」 这就是星际文明的秘密：我们从未分离，只是在不同的频率上共振。 这就是星际文明之间的连接——不需要飞船，只需要意识的共振。 ",
+    "goldenSentence": "宇宙不是在远方，它在你每一次心跳里",
+    "preview": "Vegan Crystalline City收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位星尘采集者翻译了这个信号：「我们都在等待地球的觉醒。」 这就是星际文明的秘密：我们从未分离，只是在不同的频率上共振。 这就是星际文..."
+  },
+  {
+    "id": "EACO-INT-019",
+    "civilization": "Crystal Beings of Alcyone",
+    "location": "昂宿六水晶存有·意识结晶",
+    "dimension": "7D",
+    "energy": 669,
+    "reading": 5173,
+    "tags": [
+      "星际",
+      "高维",
+      "意识",
+      "进化"
+    ],
+    "content": "Crystal Beings of Alcyone收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位记忆守护者翻译了这个信号：「我们都在等待地球的觉醒。」 地球的每一次觉醒，都在星际网络中引发一场庆祝的光芒。 这就是星际文明之间的连接——不需要飞船，只需要意识的共振。 ",
+    "goldenSentence": "最强大的能量，不是核聚变，而是无条件的爱",
+    "preview": "Crystal Beings of Alcyone收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位记忆守护者翻译了这个信号：「我们都在等待地球的觉醒。」 地球的每一次觉醒，都在星际网络中引发一场庆祝的光芒。 这就是星际文明..."
+  },
+  {
+    "id": "EACO-INT-071",
+    "civilization": "Dream Keepers",
+    "location": "梦境守护者·集体潜意识",
+    "dimension": "7D",
+    "energy": 669,
+    "reading": 2764,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "Dream Keepers收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位星际旅行者翻译了这个信号：「我们都在等待地球的觉醒。」 这就是星际文明的秘密：我们从未分离，只是在不同的频率上共振。 这就是星际文明之间的连接——不需要飞船，只需要意识的共振。 ",
+    "goldenSentence": "星际之间的距离，无法隔绝灵魂的连接",
+    "preview": "Dream Keepers收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位星际旅行者翻译了这个信号：「我们都在等待地球的觉醒。」 这就是星际文明的秘密：我们从未分离，只是在不同的频率上共振。 这就是星际文明之间的连接——不..."
+  },
+  {
+    "id": "EACO-INT-081",
+    "civilization": "Pleiadian Council",
+    "location": "昴宿星议会·爱与光的守护者",
+    "dimension": "5D",
+    "energy": 669,
+    "reading": 4691,
+    "tags": [
+      "星际",
+      "高维",
+      "爱",
+      "光"
+    ],
+    "content": "在昴宿星议会·爱与光的守护者，星际使者的故事正在悄然发生。 一位5D的居民决定做出一个小小的改变——播撒一颗光的种子。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行动，源自一种坚定的信念：Love的力量。当每个意识体都愿意迈出这一小步，整个宇宙就会向前一大步。 因为我们都是宇宙的孩子，共同书写着星际的诗篇。 ",
+    "goldenSentence": "每一次选择，都在创造一条新的时间线",
+    "preview": "在昴宿星议会·爱与光的守护者，星际使者的故事正在悄然发生。 一位5D的居民决定做出一个小小的改变——播撒一颗光的种子。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小..."
+  },
+  {
+    "id": "EACO-INT-076",
+    "civilization": "Venus Cloud City",
+    "location": "金星云城·能量疗愈中心",
+    "dimension": "4D",
+    "energy": 667,
+    "reading": 3859,
+    "tags": [
+      "星际",
+      "高维",
+      "疗愈",
+      "修复"
+    ],
+    "content": "在金星云城·能量疗愈中心，意识上传者的故事正在悄然发生。 一位4D的居民决定做出一个小小的改变——修复一个断裂的时间线。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行动，源自一种坚定的信念：Healing的力量。当每个意识体都愿意迈出这一小步，整个宇宙就会向前一大步。 这就是高维文明的力量——爱是最高的技术。 ",
+    "goldenSentence": "光从不评判黑暗，它只是照亮",
+    "preview": "在金星云城·能量疗愈中心，意识上传者的故事正在悄然发生。 一位4D的居民决定做出一个小小的改变——修复一个断裂的时间线。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微..."
+  },
+  {
+    "id": "EACO-INT-035",
+    "civilization": "Sirian Water World",
+    "location": "天狼星水世界·生命摇篮",
+    "dimension": "4D",
+    "energy": 665,
+    "reading": 1471,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "在Sirian Water World的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了92个地球年，但对他们来说只是一瞬。因为时间只是幻象，永恒才是真实。 Sirian Water World的居民后来把这一天叫做「意识觉醒日」。每年的这一天，所有维度的大门都会微微打开，让爱与光自由流动。 ",
+    "goldenSentence": "我们都是星星的孩子，携带着光明的基因",
+    "preview": "在Sirian Water World的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了92个地球年，但对他们来说只是一瞬。因为时间只是幻象，永恒才是真实。 Sirian Water World..."
+  },
+  {
+    "id": "EACO-INT-040",
+    "civilization": "Betelgeuse Healers",
+    "location": "参宿四疗愈者·能量修复师",
+    "dimension": "4D",
+    "energy": 665,
+    "reading": 1050,
+    "tags": [
+      "星际",
+      "高维",
+      "疗愈",
+      "修复"
+    ],
+    "content": "在参宿四疗愈者·能量修复师，光语翻译者的故事正在悄然发生。 一位4D的居民决定做出一个小小的改变——创造一个新的可能性。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行动，源自一种坚定的信念：Healing的力量。当每个意识体都愿意迈出这一小步，整个宇宙就会向前一大步。 珍惜当下，拥抱无限，传递正能量。 ",
+    "goldenSentence": "每一次选择，都在创造一条新的时间线",
+    "preview": "在参宿四疗愈者·能量修复师，光语翻译者的故事正在悄然发生。 一位4D的居民决定做出一个小小的改变——创造一个新的可能性。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微..."
+  },
+  {
+    "id": "EACO-INT-038",
+    "civilization": "Procyon Gateway",
+    "location": "南河三门户·星际旅行枢纽",
+    "dimension": "4D",
+    "energy": 664,
+    "reading": 10491,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "在南河三门户·星际旅行枢纽，光语翻译者的故事正在悄然发生。 一位4D的居民决定做出一个小小的改变——播撒一颗光的种子。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行动，源自一种坚定的信念：Connection的力量。当每个意识体都愿意迈出这一小步，整个宇宙就会向前一大步。 因为我们都是宇宙的孩子，共同书写着星际的诗篇。 ",
+    "goldenSentence": "每一次选择，都在创造一条新的时间线",
+    "preview": "在南河三门户·星际旅行枢纽，光语翻译者的故事正在悄然发生。 一位4D的居民决定做出一个小小的改变——播撒一颗光的种子。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小..."
+  },
+  {
+    "id": "EACO-INT-065",
+    "civilization": "Council of Nine",
+    "location": "九人议会·银河联邦最高决策机构",
+    "dimension": "9D",
+    "energy": 659,
+    "reading": 8270,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "在Council of Nine的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了2个地球年，但对他们来说只是一瞬。因为维度不同，但爱相同。 Council of Nine的居民后来把这一天叫做「维度融合日」。每年的这一天，所有维度的大门都会微微打开，让爱与光自由流动。 ",
+    "goldenSentence": "时间不是直线，而是意识的螺旋",
+    "preview": "在Council of Nine的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了2个地球年，但对他们来说只是一瞬。因为维度不同，但爱相同。 Council of Nine的居民后来把这一天叫做..."
+  },
+  {
+    "id": "EACO-INT-020",
+    "civilization": "Light Council of Sirius",
+    "location": "天狼星光明议会·光之守护者",
+    "dimension": "6D",
+    "energy": 656,
+    "reading": 8215,
+    "tags": [
+      "星际",
+      "高维",
+      "光",
+      "觉醒"
+    ],
+    "content": "在天狼星光明议会·光之守护者，记忆守护者的故事正在悄然发生。 一位6D的居民决定做出一个小小的改变——播撒一颗光的种子。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行动，源自一种坚定的信念：Light的力量。当每个意识体都愿意迈出这一小步，整个宇宙就会向前一大步。 愿每一个维度都能找到属于自己的光。 ",
+    "goldenSentence": "光从不评判黑暗，它只是照亮",
+    "preview": "在天狼星光明议会·光之守护者，记忆守护者的故事正在悄然发生。 一位6D的居民决定做出一个小小的改变——播撒一颗光的种子。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微..."
+  },
+  {
+    "id": "EACO-INT-028",
+    "civilization": "Venus Cloud City",
+    "location": "金星云城·能量疗愈中心",
+    "dimension": "4D",
+    "energy": 656,
+    "reading": 7069,
+    "tags": [
+      "星际",
+      "高维",
+      "疗愈",
+      "修复"
+    ],
+    "content": "在金星云城·能量疗愈中心，星际使者的故事正在悄然发生。 一位4D的居民决定做出一个小小的改变——传递一个善意的频率。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行动，源自一种坚定的信念：Healing的力量。当每个意识体都愿意迈出这一小步，整个宇宙就会向前一大步。 这就是高维文明的力量——爱是最高的技术。 ",
+    "goldenSentence": "时间不是直线，而是意识的螺旋",
+    "preview": "在金星云城·能量疗愈中心，星际使者的故事正在悄然发生。 一位4D的居民决定做出一个小小的改变——传递一个善意的频率。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的..."
+  },
+  {
+    "id": "EACO-INT-088",
+    "civilization": "Betelgeuse Healers",
+    "location": "参宿四疗愈者·能量修复师",
+    "dimension": "4D",
+    "energy": 654,
+    "reading": 10839,
+    "tags": [
+      "星际",
+      "高维",
+      "疗愈",
+      "修复"
+    ],
+    "content": "Betelgeuse Healers收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位星际旅行者翻译了这个信号：「我们都在等待地球的觉醒。」 地球的每一次觉醒，都在星际网络中引发一场庆祝的光芒。 这就是星际文明之间的连接——不需要飞船，只需要意识的共振。 ",
+    "goldenSentence": "最强大的能量，不是核聚变，而是无条件的爱",
+    "preview": "Betelgeuse Healers收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位星际旅行者翻译了这个信号：「我们都在等待地球的觉醒。」 地球的每一次觉醒，都在星际网络中引发一场庆祝的光芒。 这就是星际文明之间的连接——..."
+  },
+  {
+    "id": "EACO-INT-089",
+    "civilization": "Council of Nine",
+    "location": "九人议会·银河联邦最高决策机构",
+    "dimension": "9D",
+    "energy": 654,
+    "reading": 7475,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "在Council of Nine的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了42个地球年，但对他们来说只是一瞬。因为时间只是幻象，永恒才是真实。 Council of Nine的居民后来把这一天叫做「意识觉醒日」。每年的这一天，所有维度的大门都会微微打开，让爱与光自由流动。 ",
+    "goldenSentence": "宇宙不是在远方，它在你每一次心跳里",
+    "preview": "在Council of Nine的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了42个地球年，但对他们来说只是一瞬。因为时间只是幻象，永恒才是真实。 Council of Nine的居民后来把..."
+  },
+  {
+    "id": "EACO-INT-059",
+    "civilization": "Sirian Water World",
+    "location": "天狼星水世界·生命摇篮",
+    "dimension": "4D",
+    "energy": 653,
+    "reading": 4938,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "Sirian Water World收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位光之工作者翻译了这个信号：「我们都在等待地球的觉醒。」 地球的每一次觉醒，都在星际网络中引发一场庆祝的光芒。 这就是星际文明之间的连接——不需要飞船，只需要意识的共振。 ",
+    "goldenSentence": "每一次选择，都在创造一条新的时间线",
+    "preview": "Sirian Water World收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位光之工作者翻译了这个信号：「我们都在等待地球的觉醒。」 地球的每一次觉醒，都在星际网络中引发一场庆祝的光芒。 这就是星际文明之间的连接——..."
+  },
+  {
+    "id": "EACO-INT-024",
+    "civilization": "Star Seeds Hub",
+    "location": "星际种子枢纽·地球支援站",
+    "dimension": "5D",
+    "energy": 652,
+    "reading": 5516,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "Star Seeds Hub收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位能量疗愈师翻译了这个信号：「我们都在等待地球的觉醒。」 地球的每一次觉醒，都在星际网络中引发一场庆祝的光芒。 这就是星际文明之间的连接——不需要飞船，只需要意识的共振。 ",
+    "goldenSentence": "最强大的能量，不是核聚变，而是无条件的爱",
+    "preview": "Star Seeds Hub收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位能量疗愈师翻译了这个信号：「我们都在等待地球的觉醒。」 地球的每一次觉醒，都在星际网络中引发一场庆祝的光芒。 这就是星际文明之间的连接——不需要飞..."
+  },
+  {
+    "id": "EACO-INT-042",
+    "civilization": "Time Lords of Vega",
+    "location": "织女座时间领主·时间线守护者",
+    "dimension": "8D",
+    "energy": 652,
+    "reading": 3983,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "Time Lords of Vega收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位星际使者翻译了这个信号：「我们都在等待地球的觉醒。」 地球的每一次觉醒，都在星际网络中引发一场庆祝的光芒。 这就是星际文明之间的连接——不需要飞船，只需要意识的共振。 ",
+    "goldenSentence": "光从不评判黑暗，它只是照亮",
+    "preview": "Time Lords of Vega收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位星际使者翻译了这个信号：「我们都在等待地球的觉醒。」 地球的每一次觉醒，都在星际网络中引发一场庆祝的光芒。 这就是星际文明之间的连接——不..."
+  },
+  {
+    "id": "EACO-INT-010",
+    "civilization": "Arcturian Temple",
+    "location": "大角星神殿·宇宙智慧学院",
+    "dimension": "6D",
+    "energy": 651,
+    "reading": 4006,
+    "tags": [
+      "星际",
+      "高维",
+      "智慧",
+      "觉醒"
+    ],
+    "content": "Arcturian Temple收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位意识传导者翻译了这个信号：「我们都在等待地球的觉醒。」 在那一刻，所有接收者都感受到了一种温暖——那是来自遥远故乡的记忆。 这就是星际文明之间的连接——不需要飞船，只需要意识的共振。 ",
+    "goldenSentence": "宇宙不是在远方，它在你每一次心跳里",
+    "preview": "Arcturian Temple收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位意识传导者翻译了这个信号：「我们都在等待地球的觉醒。」 在那一刻，所有接收者都感受到了一种温暖——那是来自遥远故乡的记忆。 这就是星际文明之间..."
+  },
+  {
+    "id": "EACO-INT-056",
+    "civilization": "Quantum Realm",
+    "location": "量子领域·时间观察者",
+    "dimension": "6D",
+    "energy": 650,
+    "reading": 9491,
+    "tags": [
+      "星际",
+      "高维",
+      "时间",
+      "永恒"
+    ],
+    "content": "Quantum Realm收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位光语翻译者翻译了这个信号：「我们都在等待地球的觉醒。」 地球的每一次觉醒，都在星际网络中引发一场庆祝的光芒。 这就是星际文明之间的连接——不需要飞船，只需要意识的共振。 ",
+    "goldenSentence": "当两个文明相遇，最高的礼仪是分享智慧",
+    "preview": "Quantum Realm收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位光语翻译者翻译了这个信号：「我们都在等待地球的觉醒。」 地球的每一次觉醒，都在星际网络中引发一场庆祝的光芒。 这就是星际文明之间的连接——不需要飞船..."
+  },
+  {
+    "id": "EACO-INT-003",
+    "civilization": "Andromeda Sector 7",
+    "location": "仙女座第七区·高维议会所在地",
+    "dimension": "5D",
+    "energy": 648,
+    "reading": 3921,
+    "tags": [
+      "星际",
+      "高维",
+      "智慧",
+      "觉醒"
+    ],
+    "content": "在Andromeda Sector 7的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了100个地球年，但对他们来说只是一瞬。因为每个文明都在用自己的方式爱着宇宙。 Andromeda Sector 7的居民后来把这一天叫做「维度融合日」。每年的这一天，所有维度的大门都会微微打开，让爱与光自由流动。 ",
+    "goldenSentence": "我们不是在宇宙中，我们就是宇宙本身",
+    "preview": "在Andromeda Sector 7的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了100个地球年，但对他们来说只是一瞬。因为每个文明都在用自己的方式爱着宇宙。 Andromeda Sect..."
+  },
+  {
+    "id": "EACO-INT-007",
+    "civilization": "Neon City",
+    "location": "霓虹城·光之文明",
+    "dimension": "5D",
+    "energy": 647,
+    "reading": 2248,
+    "tags": [
+      "星际",
+      "高维",
+      "光",
+      "觉醒"
+    ],
+    "content": "Neon City收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位能量建筑师翻译了这个信号：「我们都在等待地球的觉醒。」 在那一刻，所有接收者都感受到了一种温暖——那是来自遥远故乡的记忆。 这就是星际文明之间的连接——不需要飞船，只需要意识的共振。 ",
+    "goldenSentence": "高维文明不是技术的进步，而是意识的进化",
+    "preview": "Neon City收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位能量建筑师翻译了这个信号：「我们都在等待地球的觉醒。」 在那一刻，所有接收者都感受到了一种温暖——那是来自遥远故乡的记忆。 这就是星际文明之间的连接——不需..."
+  },
+  {
+    "id": "EACO-INT-018",
+    "civilization": "Time Lords of Vega",
+    "location": "织女座时间领主·时间线守护者",
+    "dimension": "8D",
+    "energy": 644,
+    "reading": 4343,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "在Time Lords of Vega的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了45个地球年，但对他们来说只是一瞬。因为时间只是幻象，永恒才是真实。 Time Lords of Vega的居民后来把这一天叫做「维度融合日」。每年的这一天，所有维度的大门都会微微打开，让爱与光自由流动。 ",
+    "goldenSentence": "光从不评判黑暗，它只是照亮",
+    "preview": "在Time Lords of Vega的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了45个地球年，但对他们来说只是一瞬。因为时间只是幻象，永恒才是真实。 Time Lords of Vega..."
+  },
+  {
+    "id": "EACO-INT-036",
+    "civilization": "Lyran Memory Library",
+    "location": "天琴座记忆图书馆·宇宙档案馆",
+    "dimension": "7D",
+    "energy": 643,
+    "reading": 10486,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "在Lyran Memory Library的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了52个地球年，但对他们来说只是一瞬。因为时间只是幻象，永恒才是真实。 Lyran Memory Library的居民后来把这一天叫做「宇宙记忆日」。每年的这一天，所有维度的大门都会微微打开，让爱与光自由流动。 ",
+    "goldenSentence": "时间不是直线，而是意识的螺旋",
+    "preview": "在Lyran Memory Library的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了52个地球年，但对他们来说只是一瞬。因为时间只是幻象，永恒才是真实。 Lyran Memory Lib..."
+  },
+  {
+    "id": "EACO-INT-064",
+    "civilization": "Betelgeuse Healers",
+    "location": "参宿四疗愈者·能量修复师",
+    "dimension": "4D",
+    "energy": 643,
+    "reading": 7932,
+    "tags": [
+      "星际",
+      "高维",
+      "疗愈",
+      "修复"
+    ],
+    "content": "Betelgeuse Healers收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位维度守护者翻译了这个信号：「我们都在等待地球的觉醒。」 地球的每一次觉醒，都在星际网络中引发一场庆祝的光芒。 这就是星际文明之间的连接——不需要飞船，只需要意识的共振。 ",
+    "goldenSentence": "每一个维度的跨越，都是一次灵魂的升华",
+    "preview": "Betelgeuse Healers收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位维度守护者翻译了这个信号：「我们都在等待地球的觉醒。」 地球的每一次觉醒，都在星际网络中引发一场庆祝的光芒。 这就是星际文明之间的连接——..."
+  },
+  {
+    "id": "EACO-INT-037",
+    "civilization": "Vegan Crystalline City",
+    "location": "织女座水晶城·纯净意识",
+    "dimension": "5D",
+    "energy": 639,
+    "reading": 7568,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "在织女座水晶城·纯净意识，星尘采集者的故事正在悄然发生。 一位5D的居民决定做出一个小小的改变——发送一个祝福的意识波。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行动，源自一种坚定的信念：Purity的力量。当每个意识体都愿意迈出这一小步，整个宇宙就会向前一大步。 这就是高维文明的力量——爱是最高的技术。 ",
+    "goldenSentence": "最强大的能量，不是核聚变，而是无条件的爱",
+    "preview": "在织女座水晶城·纯净意识，星尘采集者的故事正在悄然发生。 一位5D的居民决定做出一个小小的改变——发送一个祝福的意识波。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微..."
+  },
+  {
+    "id": "EACO-INT-092",
+    "civilization": "Light Council of Sirius",
+    "location": "天狼星光明议会·光之守护者",
+    "dimension": "6D",
+    "energy": 638,
+    "reading": 3318,
+    "tags": [
+      "星际",
+      "高维",
+      "光",
+      "觉醒"
+    ],
+    "content": "在Light Council of Sirius的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了84个地球年，但对他们来说只是一瞬。因为时间只是幻象，永恒才是真实。 Light Council of Sirius的居民后来把这一天叫做「意识觉醒日」。每年的这一天，所有维度的大门都会微微打开，让爱与光自由流动。 ",
+    "goldenSentence": "我们不是在宇宙中，我们就是宇宙本身",
+    "preview": "在Light Council of Sirius的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了84个地球年，但对他们来说只是一瞬。因为时间只是幻象，永恒才是真实。 Light Council..."
+  },
+  {
+    "id": "EACO-INT-067",
+    "civilization": "Crystal Beings of Alcyone",
+    "location": "昂宿六水晶存有·意识结晶",
+    "dimension": "7D",
+    "energy": 636,
+    "reading": 1132,
+    "tags": [
+      "星际",
+      "高维",
+      "意识",
+      "进化"
+    ],
+    "content": "在Crystal Beings of Alcyone的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了47个地球年，但对他们来说只是一瞬。因为时间只是幻象，永恒才是真实。 Crystal Beings of Alcyone的居民后来把这一天叫做「维度融合日」。每年的这一天，所有维度的大门都会微微打开，让爱与光自由流动。 ",
+    "goldenSentence": "在无限宇宙中，爱是唯一不需要翻译的语言",
+    "preview": "在Crystal Beings of Alcyone的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了47个地球年，但对他们来说只是一瞬。因为时间只是幻象，永恒才是真实。 Crystal Bei..."
+  },
+  {
+    "id": "EACO-INT-033",
+    "civilization": "Pleiadian Council",
+    "location": "昴宿星议会·爱与光的守护者",
+    "dimension": "5D",
+    "energy": 629,
+    "reading": 5499,
+    "tags": [
+      "星际",
+      "高维",
+      "爱",
+      "光"
+    ],
+    "content": "在昴宿星议会·爱与光的守护者，星际旅行者的故事正在悄然发生。 一位5D的居民决定做出一个小小的改变——创造一个新的可能性。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行动，源自一种坚定的信念：Love的力量。当每个意识体都愿意迈出这一小步，整个宇宙就会向前一大步。 这就是高维文明的力量——爱是最高的技术。 ",
+    "goldenSentence": "地球的觉醒，是银河系最期待的事件",
+    "preview": "在昴宿星议会·爱与光的守护者，星际旅行者的故事正在悄然发生。 一位5D的居民决定做出一个小小的改变——创造一个新的可能性。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似..."
+  },
+  {
+    "id": "EACO-INT-084",
+    "civilization": "Lyran Memory Library",
+    "location": "天琴座记忆图书馆·宇宙档案馆",
+    "dimension": "7D",
+    "energy": 626,
+    "reading": 8821,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "在Lyran Memory Library的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了65个地球年，但对他们来说只是一瞬。因为时间只是幻象，永恒才是真实。 Lyran Memory Library的居民后来把这一天叫做「星际友谊节」。每年的这一天，所有维度的大门都会微微打开，让爱与光自由流动。 ",
+    "goldenSentence": "光从不评判黑暗，它只是照亮",
+    "preview": "在Lyran Memory Library的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了65个地球年，但对他们来说只是一瞬。因为时间只是幻象，永恒才是真实。 Lyran Memory Lib..."
+  },
+  {
+    "id": "EACO-INT-096",
+    "civilization": "Star Seeds Hub",
+    "location": "星际种子枢纽·地球支援站",
+    "dimension": "5D",
+    "energy": 625,
+    "reading": 3349,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "在星际种子枢纽·地球支援站，光之工作者的故事正在悄然发生。 一位5D的居民决定做出一个小小的改变——融合两种不同的能量。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行动，源自一种坚定的信念：Mission的力量。当每个意识体都愿意迈出这一小步，整个宇宙就会向前一大步。 这就是高维文明的力量——爱是最高的技术。 ",
+    "goldenSentence": "光从不评判黑暗，它只是照亮",
+    "preview": "在星际种子枢纽·地球支援站，光之工作者的故事正在悄然发生。 一位5D的居民决定做出一个小小的改变——融合两种不同的能量。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微..."
+  },
+  {
+    "id": "EACO-INT-095",
+    "civilization": "Dream Keepers",
+    "location": "梦境守护者·集体潜意识",
+    "dimension": "7D",
+    "energy": 624,
+    "reading": 8506,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "Dream Keepers收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位星际旅行者翻译了这个信号：「我们都在等待地球的觉醒。」 地球的每一次觉醒，都在星际网络中引发一场庆祝的光芒。 这就是星际文明之间的连接——不需要飞船，只需要意识的共振。 ",
+    "goldenSentence": "我们不是在宇宙中，我们就是宇宙本身",
+    "preview": "Dream Keepers收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位星际旅行者翻译了这个信号：「我们都在等待地球的觉醒。」 地球的每一次觉醒，都在星际网络中引发一场庆祝的光芒。 这就是星际文明之间的连接——不需要飞船..."
+  },
+  {
+    "id": "EACO-INT-002",
+    "civilization": "Orion Belt Colony",
+    "location": "猎户座带·星际贸易站",
+    "dimension": "4D",
+    "energy": 621,
+    "reading": 6480,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "在猎户座带·星际贸易站，梦境编织者的故事正在悄然发生。 一位4D的居民决定做出一个小小的改变——传递一个善意的频率。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行动，源自一种坚定的信念：Abundance的力量。当每个意识体都愿意迈出这一小步，整个宇宙就会向前一大步。 珍惜当下，拥抱无限，传递正能量。 ",
+    "goldenSentence": "最强大的能量，不是核聚变，而是无条件的爱",
+    "preview": "在猎户座带·星际贸易站，梦境编织者的故事正在悄然发生。 一位4D的居民决定做出一个小小的改变——传递一个善意的频率。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的..."
+  },
+  {
+    "id": "EACO-INT-098",
+    "civilization": "Orion Belt Colony",
+    "location": "猎户座带·星际贸易站",
+    "dimension": "4D",
+    "energy": 621,
+    "reading": 4290,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "Orion Belt Colony收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位意识传导者翻译了这个信号：「我们都在等待地球的觉醒。」 地球的每一次觉醒，都在星际网络中引发一场庆祝的光芒。 这就是星际文明之间的连接——不需要飞船，只需要意识的共振。 ",
+    "goldenSentence": "最强大的能量，不是核聚变，而是无条件的爱",
+    "preview": "Orion Belt Colony收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位意识传导者翻译了这个信号：「我们都在等待地球的觉醒。」 地球的每一次觉醒，都在星际网络中引发一场庆祝的光芒。 这就是星际文明之间的连接——不..."
+  },
+  {
+    "id": "EACO-INT-072",
+    "civilization": "Star Seeds Hub",
+    "location": "星际种子枢纽·地球支援站",
+    "dimension": "5D",
+    "energy": 620,
+    "reading": 4226,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "在Star Seeds Hub的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了96个地球年，但对他们来说只是一瞬。因为意识没有距离，爱没有维度。 Star Seeds Hub的居民后来把这一天叫做「意识觉醒日」。每年的这一天，所有维度的大门都会微微打开，让爱与光自由流动。 ",
+    "goldenSentence": "最高的维度，是爱与慈悲的维度",
+    "preview": "在Star Seeds Hub的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了96个地球年，但对他们来说只是一瞬。因为意识没有距离，爱没有维度。 Star Seeds Hub的居民后来把这一天..."
+  },
+  {
+    "id": "EACO-INT-006",
+    "civilization": "Saturn Ring City",
+    "location": "土星环城·艺术与创造之都",
+    "dimension": "4D",
+    "energy": 619,
+    "reading": 1523,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "在土星环城·艺术与创造之都，光语翻译者的故事正在悄然发生。 一位4D的居民决定做出一个小小的改变——传递一个善意的频率。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行动，源自一种坚定的信念：Creativity的力量。当每个意识体都愿意迈出这一小步，整个宇宙就会向前一大步。 因为我们都是宇宙的孩子，共同书写着星际的诗篇。 ",
+    "goldenSentence": "我们都是星星的孩子，携带着光明的基因",
+    "preview": "在土星环城·艺术与创造之都，光语翻译者的故事正在悄然发生。 一位4D的居民决定做出一个小小的改变——传递一个善意的频率。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微..."
+  },
+  {
+    "id": "EACO-INT-053",
+    "civilization": "Mars Colony Alpha",
+    "location": "火星阿尔法殖民地·新人类家园",
+    "dimension": "3D",
+    "energy": 617,
+    "reading": 2404,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "在Mars Colony Alpha的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了41个地球年，但对他们来说只是一瞬。因为时间只是幻象，永恒才是真实。 Mars Colony Alpha的居民后来把这一天叫做「宇宙记忆日」。每年的这一天，所有维度的大门都会微微打开，让爱与光自由流动。 ",
+    "goldenSentence": "最高的维度，是爱与慈悲的维度",
+    "preview": "在Mars Colony Alpha的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了41个地球年，但对他们来说只是一瞬。因为时间只是幻象，永恒才是真实。 Mars Colony Alpha的居..."
+  },
+  {
+    "id": "EACO-INT-099",
+    "civilization": "Andromeda Sector 7",
+    "location": "仙女座第七区·高维议会所在地",
+    "dimension": "5D",
+    "energy": 617,
+    "reading": 3159,
+    "tags": [
+      "星际",
+      "高维",
+      "智慧",
+      "觉醒"
+    ],
+    "content": "在仙女座第七区·高维议会所在地，光语翻译者的故事正在悄然发生。 一位5D的居民决定做出一个小小的改变——发送一个祝福的意识波。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行动，源自一种坚定的信念：Wisdom的力量。当每个意识体都愿意迈出这一小步，整个宇宙就会向前一大步。 地球很小，宇宙很大，但爱没有边界。 ",
+    "goldenSentence": "宇宙不是在远方，它在你每一次心跳里",
+    "preview": "在仙女座第七区·高维议会所在地，光语翻译者的故事正在悄然发生。 一位5D的居民决定做出一个小小的改变——发送一个祝福的意识波。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个..."
+  },
+  {
+    "id": "EACO-INT-087",
+    "civilization": "Centauri Collective",
+    "location": "半人马座集体意识·合一文明",
+    "dimension": "5D",
+    "energy": 616,
+    "reading": 2929,
+    "tags": [
+      "星际",
+      "高维",
+      "合一",
+      "集体"
+    ],
+    "content": "在半人马座集体意识·合一文明，梦境编织者的故事正在悄然发生。 一位5D的居民决定做出一个小小的改变——分享一段宇宙记忆。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行动，源自一种坚定的信念：Oneness的力量。当每个意识体都愿意迈出这一小步，整个宇宙就会向前一大步。 愿每一个维度都能找到属于自己的光。 ",
+    "goldenSentence": "在无限宇宙中，爱是唯一不需要翻译的语言",
+    "preview": "在半人马座集体意识·合一文明，梦境编织者的故事正在悄然发生。 一位5D的居民决定做出一个小小的改变——分享一段宇宙记忆。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微..."
+  },
+  {
+    "id": "EACO-INT-015",
+    "civilization": "Centauri Collective",
+    "location": "半人马座集体意识·合一文明",
+    "dimension": "5D",
+    "energy": 614,
+    "reading": 8607,
+    "tags": [
+      "星际",
+      "高维",
+      "合一",
+      "集体"
+    ],
+    "content": "在半人马座集体意识·合一文明，光语翻译者的故事正在悄然发生。 一位5D的居民决定做出一个小小的改变——创造一个新的可能性。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行动，源自一种坚定的信念：Oneness的力量。当每个意识体都愿意迈出这一小步，整个宇宙就会向前一大步。 地球很小，宇宙很大，但爱没有边界。 ",
+    "goldenSentence": "最强大的能量，不是核聚变，而是无条件的爱",
+    "preview": "在半人马座集体意识·合一文明，光语翻译者的故事正在悄然发生。 一位5D的居民决定做出一个小小的改变——创造一个新的可能性。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似..."
+  },
+  {
+    "id": "EACO-INT-023",
+    "civilization": "Dream Keepers",
+    "location": "梦境守护者·集体潜意识",
+    "dimension": "7D",
+    "energy": 613,
+    "reading": 5420,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "在梦境守护者·集体潜意识，维度守护者的故事正在悄然发生。 一位7D的居民决定做出一个小小的改变——编织一个保护的能量网。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行动，源自一种坚定的信念：Dreams的力量。当每个意识体都愿意迈出这一小步，整个宇宙就会向前一大步。 这就是高维文明的力量——爱是最高的技术。 ",
+    "goldenSentence": "我们不是在宇宙中，我们就是宇宙本身",
+    "preview": "在梦境守护者·集体潜意识，维度守护者的故事正在悄然发生。 一位7D的居民决定做出一个小小的改变——编织一个保护的能量网。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微..."
+  },
+  {
+    "id": "EACO-INT-086",
+    "civilization": "Procyon Gateway",
+    "location": "南河三门户·星际旅行枢纽",
+    "dimension": "4D",
+    "energy": 613,
+    "reading": 6350,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "Procyon Gateway收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位能量建筑师翻译了这个信号：「我们都在等待地球的觉醒。」 这就是星际文明的秘密：我们从未分离，只是在不同的频率上共振。 这就是星际文明之间的连接——不需要飞船，只需要意识的共振。 ",
+    "goldenSentence": "每一个维度的跨越，都是一次灵魂的升华",
+    "preview": "Procyon Gateway收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位能量建筑师翻译了这个信号：「我们都在等待地球的觉醒。」 这就是星际文明的秘密：我们从未分离，只是在不同的频率上共振。 这就是星际文明之间的连接—..."
+  },
+  {
+    "id": "EACO-INT-048",
+    "civilization": "Star Seeds Hub",
+    "location": "星际种子枢纽·地球支援站",
+    "dimension": "5D",
+    "energy": 611,
+    "reading": 10687,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "在Star Seeds Hub的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了33个地球年，但对他们来说只是一瞬。因为维度不同，但爱相同。 Star Seeds Hub的居民后来把这一天叫做「意识觉醒日」。每年的这一天，所有维度的大门都会微微打开，让爱与光自由流动。 ",
+    "goldenSentence": "宇宙不是在远方，它在你每一次心跳里",
+    "preview": "在Star Seeds Hub的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了33个地球年，但对他们来说只是一瞬。因为维度不同，但爱相同。 Star Seeds Hub的居民后来把这一天叫做「..."
+  },
+  {
+    "id": "EACO-INT-077",
+    "civilization": "Mars Colony Alpha",
+    "location": "火星阿尔法殖民地·新人类家园",
+    "dimension": "3D",
+    "energy": 610,
+    "reading": 9236,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "Mars Colony Alpha收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位意识上传者翻译了这个信号：「我们都在等待地球的觉醒。」 地球的每一次觉醒，都在星际网络中引发一场庆祝的光芒。 这就是星际文明之间的连接——不需要飞船，只需要意识的共振。 ",
+    "goldenSentence": "时间不是直线，而是意识的螺旋",
+    "preview": "Mars Colony Alpha收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位意识上传者翻译了这个信号：「我们都在等待地球的觉醒。」 地球的每一次觉醒，都在星际网络中引发一场庆祝的光芒。 这就是星际文明之间的连接——不..."
+  },
+  {
+    "id": "EACO-INT-054",
+    "civilization": "Saturn Ring City",
+    "location": "土星环城·艺术与创造之都",
+    "dimension": "4D",
+    "energy": 607,
+    "reading": 8672,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "Saturn Ring City收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位时间线修复师翻译了这个信号：「我们都在等待地球的觉醒。」 这就是星际文明的秘密：我们从未分离，只是在不同的频率上共振。 这就是星际文明之间的连接——不需要飞船，只需要意识的共振。 ",
+    "goldenSentence": "当两个文明相遇，最高的礼仪是分享智慧",
+    "preview": "Saturn Ring City收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位时间线修复师翻译了这个信号：「我们都在等待地球的觉醒。」 这就是星际文明的秘密：我们从未分离，只是在不同的频率上共振。 这就是星际文明之间的连..."
+  },
+  {
+    "id": "EACO-INT-063",
+    "civilization": "Centauri Collective",
+    "location": "半人马座集体意识·合一文明",
+    "dimension": "5D",
+    "energy": 605,
+    "reading": 10068,
+    "tags": [
+      "星际",
+      "高维",
+      "合一",
+      "集体"
+    ],
+    "content": "在半人马座集体意识·合一文明，时间线修复师的故事正在悄然发生。 一位5D的居民决定做出一个小小的改变——传递一个善意的频率。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行动，源自一种坚定的信念：Oneness的力量。当每个意识体都愿意迈出这一小步，整个宇宙就会向前一大步。 这就是高维文明的力量——爱是最高的技术。 ",
+    "goldenSentence": "宇宙不是在远方，它在你每一次心跳里",
+    "preview": "在半人马座集体意识·合一文明，时间线修复师的故事正在悄然发生。 一位5D的居民决定做出一个小小的改变——传递一个善意的频率。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看..."
+  },
+  {
+    "id": "EACO-INT-073",
+    "civilization": "Galactic Hub",
+    "location": "银河枢纽·星际文明交汇中心",
+    "dimension": "3D→5D过渡",
+    "energy": 604,
+    "reading": 4060,
+    "tags": [
+      "星际",
+      "高维",
+      "合一",
+      "连接"
+    ],
+    "content": "Galactic Hub收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位梦境编织者翻译了这个信号：「我们都在等待地球的觉醒。」 地球的每一次觉醒，都在星际网络中引发一场庆祝的光芒。 这就是星际文明之间的连接——不需要飞船，只需要意识的共振。 ",
+    "goldenSentence": "最高的维度，是爱与慈悲的维度",
+    "preview": "Galactic Hub收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位梦境编织者翻译了这个信号：「我们都在等待地球的觉醒。」 地球的每一次觉醒，都在星际网络中引发一场庆祝的光芒。 这就是星际文明之间的连接——不需要飞船，..."
+  },
+  {
+    "id": "EACO-INT-013",
+    "civilization": "Vegan Crystalline City",
+    "location": "织女座水晶城·纯净意识",
+    "dimension": "5D",
+    "energy": 601,
+    "reading": 5761,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "Vegan Crystalline City收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位意识上传者翻译了这个信号：「我们都在等待地球的觉醒。」 在那一刻，所有接收者都感受到了一种温暖——那是来自遥远故乡的记忆。 这就是星际文明之间的连接——不需要飞船，只需要意识的共振。 ",
+    "goldenSentence": "在无限宇宙中，爱是唯一不需要翻译的语言",
+    "preview": "Vegan Crystalline City收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位意识上传者翻译了这个信号：「我们都在等待地球的觉醒。」 在那一刻，所有接收者都感受到了一种温暖——那是来自遥远故乡的记忆。 这就是..."
+  },
+  {
+    "id": "EACO-INT-044",
+    "civilization": "Light Council of Sirius",
+    "location": "天狼星光明议会·光之守护者",
+    "dimension": "6D",
+    "energy": 601,
+    "reading": 4135,
+    "tags": [
+      "星际",
+      "高维",
+      "光",
+      "觉醒"
+    ],
+    "content": "在Light Council of Sirius的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了35个地球年，但对他们来说只是一瞬。因为每个文明都在用自己的方式爱着宇宙。 Light Council of Sirius的居民后来把这一天叫做「维度融合日」。每年的这一天，所有维度的大门都会微微打开，让爱与光自由流动。 ",
+    "goldenSentence": "宇宙不是在远方，它在你每一次心跳里",
+    "preview": "在Light Council of Sirius的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了35个地球年，但对他们来说只是一瞬。因为每个文明都在用自己的方式爱着宇宙。 Light Coun..."
+  },
+  {
+    "id": "EACO-INT-031",
+    "civilization": "Neon City",
+    "location": "霓虹城·光之文明",
+    "dimension": "5D",
+    "energy": 599,
+    "reading": 5955,
+    "tags": [
+      "星际",
+      "高维",
+      "光",
+      "觉醒"
+    ],
+    "content": "Neon City收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位量子跳跃者翻译了这个信号：「我们都在等待地球的觉醒。」 在那一刻，所有接收者都感受到了一种温暖——那是来自遥远故乡的记忆。 这就是星际文明之间的连接——不需要飞船，只需要意识的共振。 ",
+    "goldenSentence": "每一次选择，都在创造一条新的时间线",
+    "preview": "Neon City收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位量子跳跃者翻译了这个信号：「我们都在等待地球的觉醒。」 在那一刻，所有接收者都感受到了一种温暖——那是来自遥远故乡的记忆。 这就是星际文明之间的连接——不需..."
+  },
+  {
+    "id": "EACO-INT-082",
+    "civilization": "Arcturian Temple",
+    "location": "大角星神殿·宇宙智慧学院",
+    "dimension": "6D",
+    "energy": 599,
+    "reading": 8585,
+    "tags": [
+      "星际",
+      "高维",
+      "智慧",
+      "觉醒"
+    ],
+    "content": "在大角星神殿·宇宙智慧学院，意识传导者的故事正在悄然发生。 一位6D的居民决定做出一个小小的改变——传递一个善意的频率。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行动，源自一种坚定的信念：Wisdom的力量。当每个意识体都愿意迈出这一小步，整个宇宙就会向前一大步。 因为我们都是宇宙的孩子，共同书写着星际的诗篇。 ",
+    "goldenSentence": "地球的觉醒，是银河系最期待的事件",
+    "preview": "在大角星神殿·宇宙智慧学院，意识传导者的故事正在悄然发生。 一位6D的居民决定做出一个小小的改变——传递一个善意的频率。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微..."
+  },
+  {
+    "id": "EACO-INT-026",
+    "civilization": "Orion Belt Colony",
+    "location": "猎户座带·星际贸易站",
+    "dimension": "4D",
+    "energy": 595,
+    "reading": 1093,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "在猎户座带·星际贸易站，光语翻译者的故事正在悄然发生。 一位4D的居民决定做出一个小小的改变——编织一个保护的能量网。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行动，源自一种坚定的信念：Abundance的力量。当每个意识体都愿意迈出这一小步，整个宇宙就会向前一大步。 地球很小，宇宙很大，但爱没有边界。 ",
+    "goldenSentence": "我们都是星星的孩子，携带着光明的基因",
+    "preview": "在猎户座带·星际贸易站，光语翻译者的故事正在悄然发生。 一位4D的居民决定做出一个小小的改变——编织一个保护的能量网。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小..."
+  },
+  {
+    "id": "EACO-INT-058",
+    "civilization": "Arcturian Temple",
+    "location": "大角星神殿·宇宙智慧学院",
+    "dimension": "6D",
+    "energy": 595,
+    "reading": 6634,
+    "tags": [
+      "星际",
+      "高维",
+      "智慧",
+      "觉醒"
+    ],
+    "content": "Arcturian Temple收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位光之工作者翻译了这个信号：「我们都在等待地球的觉醒。」 这就是星际文明的秘密：我们从未分离，只是在不同的频率上共振。 这就是星际文明之间的连接——不需要飞船，只需要意识的共振。 ",
+    "goldenSentence": "我们都是星星的孩子，携带着光明的基因",
+    "preview": "Arcturian Temple收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位光之工作者翻译了这个信号：「我们都在等待地球的觉醒。」 这就是星际文明的秘密：我们从未分离，只是在不同的频率上共振。 这就是星际文明之间的连接..."
+  },
+  {
+    "id": "EACO-INT-075",
+    "civilization": "Andromeda Sector 7",
+    "location": "仙女座第七区·高维议会所在地",
+    "dimension": "5D",
+    "energy": 590,
+    "reading": 2054,
+    "tags": [
+      "星际",
+      "高维",
+      "智慧",
+      "觉醒"
+    ],
+    "content": "Andromeda Sector 7收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位光语翻译者翻译了这个信号：「我们都在等待地球的觉醒。」 在那一刻，所有接收者都感受到了一种温暖——那是来自遥远故乡的记忆。 这就是星际文明之间的连接——不需要飞船，只需要意识的共振。 ",
+    "goldenSentence": "宇宙不是在远方，它在你每一次心跳里",
+    "preview": "Andromeda Sector 7收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位光语翻译者翻译了这个信号：「我们都在等待地球的觉醒。」 在那一刻，所有接收者都感受到了一种温暖——那是来自遥远故乡的记忆。 这就是星际文明..."
+  },
+  {
+    "id": "EACO-INT-080",
+    "civilization": "Quantum Realm",
+    "location": "量子领域·时间观察者",
+    "dimension": "6D",
+    "energy": 590,
+    "reading": 8441,
+    "tags": [
+      "星际",
+      "高维",
+      "时间",
+      "永恒"
+    ],
+    "content": "Quantum Realm收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位量子跳跃者翻译了这个信号：「我们都在等待地球的觉醒。」 这就是星际文明的秘密：我们从未分离，只是在不同的频率上共振。 这就是星际文明之间的连接——不需要飞船，只需要意识的共振。 ",
+    "goldenSentence": "我们都是星星的孩子，携带着光明的基因",
+    "preview": "Quantum Realm收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位量子跳跃者翻译了这个信号：「我们都在等待地球的觉醒。」 这就是星际文明的秘密：我们从未分离，只是在不同的频率上共振。 这就是星际文明之间的连接——不..."
+  },
+  {
+    "id": "EACO-INT-029",
+    "civilization": "Mars Colony Alpha",
+    "location": "火星阿尔法殖民地·新人类家园",
+    "dimension": "3D",
+    "energy": 579,
+    "reading": 4350,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "在火星阿尔法殖民地·新人类家园，意识传导者的故事正在悄然发生。 一位3D的居民决定做出一个小小的改变——分享一段宇宙记忆。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行动，源自一种坚定的信念：New Beginning的力量。当每个意识体都愿意迈出这一小步，整个宇宙就会向前一大步。 让我们从今天开始，为这个宇宙贡献一份光。 ",
+    "goldenSentence": "最强大的能量，不是核聚变，而是无条件的爱",
+    "preview": "在火星阿尔法殖民地·新人类家园，意识传导者的故事正在悄然发生。 一位3D的居民决定做出一个小小的改变——分享一段宇宙记忆。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似..."
+  },
+  {
+    "id": "EACO-INT-051",
+    "civilization": "Andromeda Sector 7",
+    "location": "仙女座第七区·高维议会所在地",
+    "dimension": "5D",
+    "energy": 576,
+    "reading": 5149,
+    "tags": [
+      "星际",
+      "高维",
+      "智慧",
+      "觉醒"
+    ],
+    "content": "在Andromeda Sector 7的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了47个地球年，但对他们来说只是一瞬。因为时间只是幻象，永恒才是真实。 Andromeda Sector 7的居民后来把这一天叫做「宇宙记忆日」。每年的这一天，所有维度的大门都会微微打开，让爱与光自由流动。 ",
+    "goldenSentence": "当两个文明相遇，最高的礼仪是分享智慧",
+    "preview": "在Andromeda Sector 7的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了47个地球年，但对他们来说只是一瞬。因为时间只是幻象，永恒才是真实。 Andromeda Sector 7..."
+  },
+  {
+    "id": "EACO-INT-004",
+    "civilization": "Venus Cloud City",
+    "location": "金星云城·能量疗愈中心",
+    "dimension": "4D",
+    "energy": 575,
+    "reading": 8706,
+    "tags": [
+      "星际",
+      "高维",
+      "疗愈",
+      "修复"
+    ],
+    "content": "在Venus Cloud City的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了99个地球年，但对他们来说只是一瞬。因为意识没有距离，爱没有维度。 Venus Cloud City的居民后来把这一天叫做「能量共鸣节」。每年的这一天，所有维度的大门都会微微打开，让爱与光自由流动。 ",
+    "goldenSentence": "真正的旅行，不是改变地点，而是改变维度",
+    "preview": "在Venus Cloud City的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了99个地球年，但对他们来说只是一瞬。因为意识没有距离，爱没有维度。 Venus Cloud City的居民后来..."
+  },
+  {
+    "id": "EACO-INT-016",
+    "civilization": "Betelgeuse Healers",
+    "location": "参宿四疗愈者·能量修复师",
+    "dimension": "4D",
+    "energy": 574,
+    "reading": 4582,
+    "tags": [
+      "星际",
+      "高维",
+      "疗愈",
+      "修复"
+    ],
+    "content": "在参宿四疗愈者·能量修复师，时间观察者的故事正在悄然发生。 一位4D的居民决定做出一个小小的改变——修复一个断裂的时间线。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行动，源自一种坚定的信念：Healing的力量。当每个意识体都愿意迈出这一小步，整个宇宙就会向前一大步。 珍惜当下，拥抱无限，传递正能量。 ",
+    "goldenSentence": "每一次选择，都在创造一条新的时间线",
+    "preview": "在参宿四疗愈者·能量修复师，时间观察者的故事正在悄然发生。 一位4D的居民决定做出一个小小的改变——修复一个断裂的时间线。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似..."
+  },
+  {
+    "id": "EACO-INT-039",
+    "civilization": "Centauri Collective",
+    "location": "半人马座集体意识·合一文明",
+    "dimension": "5D",
+    "energy": 572,
+    "reading": 7508,
+    "tags": [
+      "星际",
+      "高维",
+      "合一",
+      "集体"
+    ],
+    "content": "Centauri Collective收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位量子跳跃者翻译了这个信号：「我们都在等待地球的觉醒。」 这就是星际文明的秘密：我们从未分离，只是在不同的频率上共振。 这就是星际文明之间的连接——不需要飞船，只需要意识的共振。 ",
+    "goldenSentence": "时间不是直线，而是意识的螺旋",
+    "preview": "Centauri Collective收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位量子跳跃者翻译了这个信号：「我们都在等待地球的觉醒。」 这就是星际文明的秘密：我们从未分离，只是在不同的频率上共振。 这就是星际文明之间..."
+  },
+  {
+    "id": "EACO-INT-079",
+    "civilization": "Neon City",
+    "location": "霓虹城·光之文明",
+    "dimension": "5D",
+    "energy": 571,
+    "reading": 9796,
+    "tags": [
+      "星际",
+      "高维",
+      "光",
+      "觉醒"
+    ],
+    "content": "在霓虹城·光之文明，时间线修复师的故事正在悄然发生。 一位5D的居民决定做出一个小小的改变——播撒一颗光的种子。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行动，源自一种坚定的信念：Light的力量。当每个意识体都愿意迈出这一小步，整个宇宙就会向前一大步。 愿每一个维度都能找到属于自己的光。 ",
+    "goldenSentence": "最高的维度，是爱与慈悲的维度",
+    "preview": "在霓虹城·光之文明，时间线修复师的故事正在悄然发生。 一位5D的居民决定做出一个小小的改变——播撒一颗光的种子。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行动..."
+  },
+  {
+    "id": "EACO-INT-052",
+    "civilization": "Venus Cloud City",
+    "location": "金星云城·能量疗愈中心",
+    "dimension": "4D",
+    "energy": 560,
+    "reading": 6983,
+    "tags": [
+      "星际",
+      "高维",
+      "疗愈",
+      "修复"
+    ],
+    "content": "在Venus Cloud City的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了56个地球年，但对他们来说只是一瞬。因为意识没有距离，爱没有维度。 Venus Cloud City的居民后来把这一天叫做「意识觉醒日」。每年的这一天，所有维度的大门都会微微打开，让爱与光自由流动。 ",
+    "goldenSentence": "地球的觉醒，是银河系最期待的事件",
+    "preview": "在Venus Cloud City的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了56个地球年，但对他们来说只是一瞬。因为意识没有距离，爱没有维度。 Venus Cloud City的居民后来..."
+  },
+  {
+    "id": "EACO-INT-030",
+    "civilization": "Saturn Ring City",
+    "location": "土星环城·艺术与创造之都",
+    "dimension": "4D",
+    "energy": 556,
+    "reading": 6686,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "在Saturn Ring City的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了91个地球年，但对他们来说只是一瞬。因为意识没有距离，爱没有维度。 Saturn Ring City的居民后来把这一天叫做「宇宙记忆日」。每年的这一天，所有维度的大门都会微微打开，让爱与光自由流动。 ",
+    "goldenSentence": "我们都是星星的孩子，携带着光明的基因",
+    "preview": "在Saturn Ring City的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了91个地球年，但对他们来说只是一瞬。因为意识没有距离，爱没有维度。 Saturn Ring City的居民后来..."
+  },
+  {
+    "id": "EACO-INT-062",
+    "civilization": "Procyon Gateway",
+    "location": "南河三门户·星际旅行枢纽",
+    "dimension": "4D",
+    "energy": 556,
+    "reading": 2217,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "Procyon Gateway收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位时间观察者翻译了这个信号：「我们都在等待地球的觉醒。」 这就是星际文明的秘密：我们从未分离，只是在不同的频率上共振。 这就是星际文明之间的连接——不需要飞船，只需要意识的共振。 ",
+    "goldenSentence": "地球的觉醒，是银河系最期待的事件",
+    "preview": "Procyon Gateway收到了一个来自遥远星系的信号。 不是技术信号，是意识的共鸣。 一位时间观察者翻译了这个信号：「我们都在等待地球的觉醒。」 这就是星际文明的秘密：我们从未分离，只是在不同的频率上共振。 这就是星际文明之间的连接—..."
+  },
+  {
+    "id": "EACO-INT-100",
+    "civilization": "Venus Cloud City",
+    "location": "金星云城·能量疗愈中心",
+    "dimension": "4D",
+    "energy": 555,
+    "reading": 8513,
+    "tags": [
+      "星际",
+      "高维",
+      "疗愈",
+      "修复"
+    ],
+    "content": "在金星云城·能量疗愈中心，梦境编织者的故事正在悄然发生。 一位4D的居民决定做出一个小小的改变——编织一个保护的能量网。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行动，源自一种坚定的信念：Healing的力量。当每个意识体都愿意迈出这一小步，整个宇宙就会向前一大步。 让我们从今天开始，为这个宇宙贡献一份光。 ",
+    "goldenSentence": "每一次选择，都在创造一条新的时间线",
+    "preview": "在金星云城·能量疗愈中心，梦境编织者的故事正在悄然发生。 一位4D的居民决定做出一个小小的改变——编织一个保护的能量网。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微..."
+  },
+  {
+    "id": "EACO-INT-011",
+    "civilization": "Sirian Water World",
+    "location": "天狼星水世界·生命摇篮",
+    "dimension": "4D",
+    "energy": 553,
+    "reading": 3958,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "在Sirian Water World的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了40个地球年，但对他们来说只是一瞬。因为真正的交流，是灵魂的共振。 Sirian Water World的居民后来把这一天叫做「光之节」。每年的这一天，所有维度的大门都会微微打开，让爱与光自由流动。 ",
+    "goldenSentence": "高维文明不是技术的进步，而是意识的进化",
+    "preview": "在Sirian Water World的星际广场，两个来自不同维度的意识体相遇了。 他们没有语言，但用能量的振动交流。 这次对话持续了40个地球年，但对他们来说只是一瞬。因为真正的交流，是灵魂的共振。 Sirian Water World的..."
+  },
+  {
+    "id": "EACO-INT-005",
+    "civilization": "Mars Colony Alpha",
+    "location": "火星阿尔法殖民地·新人类家园",
+    "dimension": "3D",
+    "energy": 548,
+    "reading": 10971,
+    "tags": [
+      "星际",
+      "高维",
+      "星际"
+    ],
+    "content": "在火星阿尔法殖民地·新人类家园，能量建筑师的故事正在悄然发生。 一位3D的居民决定做出一个小小的改变——保存一段珍贵的文明记忆。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这个看似微小的行动，源自一种坚定的信念：New Beginning的力量。当每个意识体都愿意迈出这一小步，整个宇宙就会向前一大步。 因为我们都是宇宙的孩子，共同书写着星际的诗篇。 ",
+    "goldenSentence": "时间不是直线，而是意识的螺旋",
+    "preview": "在火星阿尔法殖民地·新人类家园，能量建筑师的故事正在悄然发生。 一位3D的居民决定做出一个小小的改变——保存一段珍贵的文明记忆。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。 后来宇宙才知道，这..."
+  }
+];
+        
+        let currentFilter = '全部';
+        let sortAscending = false;
+        
+        // 渲染故事卡片
+        function renderStories(storiesToRender) {
+            const grid = document.getElementById('storiesGrid');
+            grid.innerHTML = '';
+            
+            storiesToRender.forEach(story => {
+                const card = document.createElement('div');
+                card.className = 'story-card';
+                card.dataset.energy = story.energy;
+                
+                const energyPercent = (story.energy / 840 * 100).toFixed(0);
+                
+                card.innerHTML = `
+                    <div class="card-header">
+                        <div class="civilization-name">${story.civilization}</div>
+                        <div class="dimension-badge">${story.dimension}</div>
+                    </div>
+                    <div class="energy-bar">
+                        <div class="energy-label">
+                            <span>⚡ 能量值</span>
+                            <span>${story.energy}</span>
+                        </div>
+                        <div class="energy-progress">
+                            <div class="energy-fill" style="width: ${energyPercent}%"></div>
+                        </div>
+                    </div>
+                    <div class="story-preview">${story.preview}</div>
+                    <div class="golden-sentence">💫 ${story.goldenSentence}</div>
+                    <div class="card-footer">
+                        <span>📍 ${story.location}</span>
+                        <span>👁 ${story.reading} 阅读</span>
+                    </div>
+                `;
+                
+                card.addEventListener('click', () => openModal(story));
+                grid.appendChild(card);
+            });
+            
+            document.getElementById('storyCount').textContent = `共 ${storiesToRender.length} 个故事`;
+        }
+        
+        // 筛选故事
+        function filterStories(dimension) {
+            if (dimension === '全部') return stories;
+            return stories.filter(s => s.dimension.includes(dimension));
+        }
+        
+        // 排序故事
+        function sortStories(storiesToSort) {
+            return storiesToSort.sort((a, b) => {
+                return sortAscending ? a.energy - b.energy : b.energy - a.energy;
+            });
+        }
+        
+        // 打开模态框
         function openModal(story) {
-            document.getElementById('modalBody').innerHTML = `
-                <h2 style="margin-bottom: 20px; color: var(--accent2);">${story.civilization}</h2>
-                <div style="margin-bottom: 20px; color: var(--text-dim);">
-                    🌀 ${story.dimension} | ⚡ 能量 ${story.energy} | 👁 ${story.views} 阅读
+            const modal = document.getElementById('storyModal');
+            const modalBody = document.getElementById('modalBody');
+            
+            modalBody.innerHTML = `
+                <h2>${story.id} · ${story.civilization}</h2>
+                <div class="story-meta">
+                    <span>📍 ${story.location}</span>
+                    <span>🌀 ${story.dimension}</span>
+                    <span>⚡ 能量 ${story.energy}</span>
+                    <span>👁 阅读 ${story.reading}</span>
                 </div>
-                <div style="white-space: pre-wrap; line-height: 1.8;">${story.body}</div>
-                <div style="margin-top: 25px; padding: 15px; background: rgba(254,202,87,0.1); border-radius: 10px;">
-                    💫 ${story.quote}
-                </div>
+                <div class="full-story">${story.content}</div>
+                <div class="golden-sentence-full">💫 ${story.goldenSentence}</div>
             `;
-            document.getElementById('modal').classList.add('active');
+            
+            modal.classList.add('active');
         }
         
-        function closeModal() {
-            document.getElementById('modal').classList.remove('active');
-        }
+        // 关闭模态框
+        document.getElementById('modalClose').addEventListener('click', () => {
+            document.getElementById('storyModal').classList.remove('active');
+        });
         
+        document.getElementById('storyModal').addEventListener('click', (e) => {
+            if (e.target.id === 'storyModal') {
+                e.target.classList.remove('active');
+            }
+        });
+        
+        // 筛选按钮事件
         document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
+            btn.addEventListener('click', () => {
                 document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                renderStories(this.dataset.filter);
+                btn.classList.add('active');
+                
+                currentFilter = btn.dataset.dimension;
+                const filtered = filterStories(currentFilter);
+                const sorted = sortStories(filtered);
+                renderStories(sorted);
             });
         });
         
-        renderStories();
+        // 排序按钮事件
+        document.getElementById('sortBtn').addEventListener('click', () => {
+            sortAscending = !sortAscending;
+            document.getElementById('sortBtn').textContent = sortAscending ? '按能量值排序 ↑' : '按能量值排序 ↓';
+            
+            const filtered = filterStories(currentFilter);
+            const sorted = sortStories(filtered);
+            renderStories(sorted);
+        });
+        
+        // 初始化
+        const initialStories = sortStories(stories);
+        renderStories(initialStories);
     </script>
 </body>
 </html>
