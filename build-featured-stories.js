@@ -44,21 +44,21 @@ function parseStoriesDatabase(content) {
     for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
         
-        // 检测新故事开始: ### 🌏 EACO-XXX · 主题 · 标题
+        // 检测新故事开始: ### 🌏 EACO-XXX · 主题 · 标题  或  ## 🌌 EACO-INT-XXX · 文明名
         const titleMatch = line.match(/###\s+[^\·]+\·\s*([^\·]+)\·\s*(.+)/);
-        if (line.startsWith('### ') && line.includes('EACO-')) {
+        if ((line.startsWith('### ') || line.startsWith('## ')) && line.includes('EACO-')) {
             // 保存上一个故事
             if (currentStory && bodyLines.length > 0) {
                 currentStory.body = bodyLines.join('\n').trim();
                 stories.push(currentStory);
             }
             
-            // 解析故事编号和标题
-            const match = line.match(/EACO-(\d+)\s*·\s*([^\·]+)·\s*(.+)/);
+            // 解析故事编号和标题（支持 EACO-XXX 和 EACO-INT-XXX）
+            const match = line.match(/EACO-(INT-)?(\d+)\s*·\s*(.+)/);
             if (match) {
                 currentStory = {
-                    id: match[1],
-                    themeRaw: match[2].trim(),
+                    id: match[1] ? `INT-${match[2]}` : match[2], // EACO-INT-XXX 或 EACO-XXX
+                    themeRaw: 'Universe', // 星际故事默认宇宙主题
                     title: match[3].trim(),
                     location: '',
                     character: '',
@@ -67,7 +67,8 @@ function parseStoriesDatabase(content) {
                     mechanism: '',
                     inspiration: '',
                     body: '',
-                    tags: []
+                    tags: [],
+                    isInterstellar: !!match[1] // 标记为星际故事
                 };
                 inBody = false;
                 bodyLines = [];
@@ -77,11 +78,11 @@ function parseStoriesDatabase(content) {
         
         if (!currentStory) continue;
         
-        // 解析元数据行: 📍 地点 | 👤 人物 | ⚡ 能量 | 👁 阅读
-        if (line.includes('📍') && line.includes('⚡')) {
-            const locMatch = line.match(/📍\s*(.+?)\s*\|/);
-            const energyMatch = line.match(/⚡\s*能量\s*(\d+)/);
-            const viewsMatch = line.match(/👁\s*阅读\s*(\d+)/);
+        // 解析元数据行: 📍 地点 | ⚡ 能量 | 👁 阅读 (支持两种格式)
+        if (line.includes('📍') && (line.includes('⚡') || line.includes('能量'))) {
+            const locMatch = line.match(/📍\s*(.+?)(?:\s*\||$)/);
+            const energyMatch = line.match(/⚡\s*(?:能量)?\s*(\d+)/);
+            const viewsMatch = line.match(/👁\s*(?:阅读)?\s*(\d+)/);
             if (locMatch) currentStory.location = locMatch[1].trim();
             if (energyMatch) currentStory.energy = parseInt(energyMatch[1]);
             if (viewsMatch) currentStory.views = parseInt(viewsMatch[1]);

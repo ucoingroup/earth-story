@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EACO 星际文明故事 | Interstellar Civilizations</title>
+    <meta name="description" content="100个高维文明、星际文明正能量故事 - 从3D到∞维度的宇宙智慧">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #050510;
+            --card-bg: #0a0a20;
+            --text: #e8e8f0;
+            --text-dim: #8888aa;
+            --accent: #6c5ce7;
+            --accent2: #00cec9;
+            --gold: #feca57;
+            --border: #2a2a4a;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        .stars {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 0;
+            background: 
+                radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.8), transparent),
+                radial-gradient(1px 1px at 40% 70%, rgba(255,255,255,0.5), transparent),
+                radial-gradient(2px 2px at 80% 40%, rgba(108,92,231,0.8), transparent),
+                radial-gradient(1px 1px at 60% 80%, rgba(0,206,201,0.6), transparent);
+            background-size: 250px 150px;
+            animation: twinkle 4s ease-in-out infinite;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; position: relative; z-index: 1; }
+        
+        .header {
+            text-align: center; padding: 50px 20px 40px;
+            background: radial-gradient(ellipse at center, rgba(108,92,231,0.2), transparent);
+            border-radius: 30px; margin-bottom: 40px;
+        }
+        .header h1 {
+            font-size: 2.5em; 
+            background: linear-gradient(135deg, #6c5ce7, #00cec9, #feca57);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; margin-bottom: 15px;
+        }
+        .header .subtitle {
+            font-size: 1.1em; color: var(--text-dim); margin-bottom: 20px;
+        }
+        .stats {
+            display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;
+            margin-top: 25px;
+        }
+        .stat {
+            text-align: center; padding: 15px 25px;
+            background: rgba(108,92,231,0.1); border-radius: 15px;
+            border: 1px solid var(--border);
+        }
+        .stat-value { font-size: 2em; font-weight: bold; color: var(--accent); }
+        .stat-label { font-size: 0.9em; color: var(--text-dim); }
+        
+        .filters {
+            display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;
+            margin-bottom: 30px; padding: 0 20px;
+        }
+        .filter-btn {
+            padding: 8px 16px; border: 1px solid var(--border);
+            background: transparent; color: var(--text); border-radius: 20px;
+            cursor: pointer; font-size: 0.9em; transition: all 0.3s;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--accent); border-color: var(--accent);
+        }
+        
+        .story-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px; padding: 0 10px;
+        }
+        .story-card {
+            background: var(--card-bg); border-radius: 20px; padding: 25px;
+            border: 1px solid var(--border); transition: all 0.3s;
+            cursor: pointer;
+        }
+        .story-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(108,92,231,0.2);
+        }
+        .story-header {
+            display: flex; justify-content: space-between; align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        .civ-name { font-size: 1.2em; font-weight: bold; color: var(--accent2); }
+        .dimension {
+            font-size: 0.85em; padding: 4px 10px;
+            background: rgba(108,92,231,0.2); border-radius: 10px;
+            color: var(--accent);
+        }
+        .story-meta {
+            font-size: 0.9em; color: var(--text-dim); margin-bottom: 15px;
+        }
+        .story-preview {
+            color: var(--text); font-size: 0.95em;
+            display: -webkit-box; -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical; overflow: hidden;
+        }
+        .energy-bar {
+            height: 4px; background: rgba(255,255,255,0.1);
+            border-radius: 2px; margin-top: 15px; overflow: hidden;
+        }
+        .energy-fill {
+            height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2));
+            transition: width 0.5s;
+        }
+        .quote {
+            margin-top: 15px; padding: 10px 15px;
+            background: rgba(254,202,87,0.1); border-left: 3px solid var(--gold);
+            font-style: italic; font-size: 0.9em; color: var(--gold);
+        }
+        
+        .modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 1000; overflow-y: auto;
+            padding: 20px;
+        }
+        .modal.active { display: flex; justify-content: center; align-items: flex-start; }
+        .modal-content {
+            background: var(--card-bg); max-width: 700px; width: 100%;
+            border-radius: 25px; padding: 40px; margin: 40px 0;
+            border: 1px solid var(--border);
+        }
+        .modal-close {
+            position: fixed; top: 20px; right: 30px;
+            font-size: 2em; color: white; cursor: pointer;
+            background: rgba(255,255,255,0.1); width: 50px; height: 50px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+        }
+        .modal-close:hover { background: rgba(255,255,255,0.2); }
+        .modal-body { white-space: pre-wrap; line-height: 1.8; }
+        
+        footer {
+            text-align: center; padding: 40px 20px;
+            color: var(--text-dim); font-size: 0.9em;
+        }
+        footer a { color: var(--accent2); text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>🌌 EACO 星际文明故事</h1>
+            <div class="subtitle">高维文明 · 星际智慧 · 宇宙正能量</div>
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-value" id="totalStories">100</div>
+                    <div class="stat-label">星际故事</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">24</div>
+                    <div class="stat-label">文明</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">3D-∞</div>
+                    <div class="stat-label">维度范围</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">全部</button>
+            <button class="filter-btn" data-filter="∞">∞ 维度</button>
+            <button class="filter-btn" data-filter="9D">9D</button>
+            <button class="filter-btn" data-filter="8D">8D</button>
+            <button class="filter-btn" data-filter="7D">7D</button>
+            <button class="filter-btn" data-filter="6D">6D</button>
+            <button class="filter-btn" data-filter="5D">5D</button>
+            <button class="filter-btn" data-filter="4D">4D</button>
+        </div>
+        
+        <div class="story-grid" id="storyGrid"></div>
+        
+        <footer>
+            <p>🌍 <a href="index.html">返回主页</a> | EACO Earth Story © 2026</p>
+            <p style="margin-top: 10px;">连接万物 · 传递正能量</p>
+        </footer>
+    </div>
+    
+    <div class="modal" id="modal">
+        <span class="modal-close" onclick="closeModal()">×</span>
+        <div class="modal-content">
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+    
+    <script>
+        const stories = [];
+        
+        // 示例数据（实际从JSON加载）
+        const sampleStories = [
+            { id: 'INT-093', civilization: 'Void Walkers', desc: '虚空行者·维度间旅行者', dimension: '∞', energy: 840, views: 10246, quote: '最高的维度，是爱与慈悲的维度', body: '在虚空行者·维度间旅行者，光语翻译者的故事正在悄然发生...\n\n一位∞的居民决定做出一个小小的改变——融合两种不同的能量。这个简单的举动，像一颗光子投入宇宙能量场，激起的涟漪跨越了星系、维度，最终抵达了遥远的文明。\n\n因为我们都是宇宙的孩子，共同书写着星际的诗篇。' },
+            { id: 'INT-017', civilization: 'Council of Nine', desc: '九人议会·银河联邦最高决策机构', dimension: '9D', energy: 777, views: 10958, quote: '最强大的能量，不是核聚变，而是无条件的爱', body: '在九人议会·银河联邦最高决策机构，星尘采集者的故事正在悄然发生...\n\n一位9D的居民决定做出一个小小的改变——修复一个断裂的时间线。\n\n愿每一个维度都能找到属于自己的光。' },
+            { id: 'INT-022', civilization: 'Energy Weavers', desc: '能量编织者·宇宙能量网络', dimension: '8D', energy: 750, views: 2667, quote: '最强大的能量，不是核聚变，而是无条件的爱', body: '在能量编织者·宇宙能量网络，能量疗愈师的故事正在悄然发生...\n\n珍惜当下，拥抱无限，传递正能量。' }
+        ];
+        
+        function renderStories(filter = 'all') {
+            const grid = document.getElementById('storyGrid');
+            grid.innerHTML = '';
+            
+            const filtered = filter === 'all' ? sampleStories : 
+                            sampleStories.filter(s => s.dimension === filter);
+            
+            filtered.forEach(story => {
+                const card = document.createElement('div');
+                card.className = 'story-card';
+                card.onclick = () => openModal(story);
+                card.innerHTML = `
+                    <div class="story-header">
+                        <div class="civ-name">${story.civilization}</div>
+                        <div class="dimension">${story.dimension}</div>
+                    </div>
+                    <div class="story-meta">${story.desc}</div>
+                    <div class="story-preview">${story.body.slice(0, 100)}...</div>
+                    <div class="energy-bar">
+                        <div class="energy-fill" style="width: ${story.energy / 10}%"></div>
+                    </div>
+                    <div class="quote">"${story.quote}"</div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+        
+        function openModal(story) {
+            document.getElementById('modalBody').innerHTML = `
+                <h2 style="margin-bottom: 20px; color: var(--accent2);">${story.civilization}</h2>
+                <div style="margin-bottom: 20px; color: var(--text-dim);">
+                    🌀 ${story.dimension} | ⚡ 能量 ${story.energy} | 👁 ${story.views} 阅读
+                </div>
+                <div style="white-space: pre-wrap; line-height: 1.8;">${story.body}</div>
+                <div style="margin-top: 25px; padding: 15px; background: rgba(254,202,87,0.1); border-radius: 10px;">
+                    💫 ${story.quote}
+                </div>
+            `;
+            document.getElementById('modal').classList.add('active');
+        }
+        
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+        
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                renderStories(this.dataset.filter);
+            });
+        });
+        
+        renderStories();
+    </script>
+</body>
+</html>
