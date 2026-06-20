@@ -97,7 +97,7 @@ function parseDailyStory(content) {
         
         if (locationMatch && energyMatch) {
             const rawTheme = themeMatch ? themeMatch[2].replace('#', '') : '';
-            const location = locationMatch[1].trim();
+            const location = locationMatch[1].split('|')[0].trim();  // 只取地点名称，去掉后面的能量值等信息
             const energy = parseInt(energyMatch[1]);
             
             // Extract body paragraphs
